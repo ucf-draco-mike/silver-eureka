@@ -119,33 +119,58 @@ for (const value of [...attr("src"), ...attr("href")]) {
 /* --- owner settings that do nothing ------------------------------------------ */
 
 /**
- * A setting filled in but absent from the page means the placeholder it feeds was
- * edited out of content/ — so the value sits in config.json looking effective while
- * changing nothing. Editing prose and editing config are separate habits, and this is
- * where they silently disagree.
+ * A config setting only reaches the page through its placeholder. Write the real value
+ * into copy.md directly and the placeholder disappears, which leaves the setting sitting
+ * in config.json looking effective while controlling nothing — editing it afterwards
+ * changes no pixel, silently.
  *
- * Only settings that are meant to be visible are checked. `githubUser` and `repoName`
- * feed the canonical URL, which no template renders.
+ * The test is whether the placeholder still exists in the rendered content, not whether
+ * the value appears on the page: inlining the same text by hand makes the value appear
+ * while the setting is just as dead.
+ *
+ * `formId` is not listed — it reaches the form action through a template, not a
+ * placeholder — and `githubUser`/`repoName` feed the canonical URL, which no template
+ * renders.
  */
 const config = JSON.parse(
   fs.readFileSync(path.join(process.cwd(), "content", "config.json"), "utf8"),
 );
-const VISIBLE_SETTINGS = {
-  formId: "[FORM_ID]",
+const equipment = JSON.parse(
+  fs.readFileSync(path.join(process.cwd(), "content", "equipment.json"), "utf8"),
+);
+/** Only rendered content counts — equipment.json's `meta` block never reaches a page. */
+const renderedContent =
+  fs.readFileSync(path.join(process.cwd(), "content", "copy.md"), "utf8") +
+  JSON.stringify(equipment.items);
+
+const PLACEHOLDERS = {
   loanWindow: "[Oct 2026 – Jan 2027]",
   location: "[building/room]",
   contactEmail: "[contact email]",
 };
-for (const [key, placeholder] of Object.entries(VISIBLE_SETTINGS)) {
+for (const [key, placeholder] of Object.entries(PLACEHOLDERS)) {
   const value = config.owner?.[key];
-  if (!value) continue;
-  const stillDefault = value === placeholder || /^[[{].*[\]}]$/.test(value);
-  if (stillDefault) continue;
-  if (!html.includes(value)) {
+  if (!value || value === placeholder) continue;
+  if (!renderedContent.includes(placeholder)) {
     notes.push(
-      `owner.${key} is set to "${value}" but appears nowhere on the page. ` +
-        `Its placeholder was probably edited out of content/copy.md — either restore the ` +
-        `placeholder or clear the setting, so config.json is not promising something it no longer controls.`,
+      `owner.${key} is set to "${value}" but its placeholder ${placeholder} no longer ` +
+        `appears in content/, so the setting controls nothing — editing it will change ` +
+        `nothing on the page. Restore the placeholder where the value belongs, or drop the ` +
+        `setting so config.json stops implying it is live.`,
+    );
+  }
+}
+
+/**
+ * The mirror case: a setting left at its default renders the bracketed placeholder
+ * literally, so visitors read "[building/room]" and conclude the page is unfinished.
+ * Worth catching before the link circulates rather than after.
+ */
+for (const [key, placeholder] of Object.entries({ ...PLACEHOLDERS, githubUser: "{username}" })) {
+  if (html.includes(placeholder)) {
+    notes.push(
+      `owner.${key} is still the placeholder, and "${placeholder}" renders literally on ` +
+        `the page. Set it in content/config.json before circulating the link.`,
     );
   }
 }

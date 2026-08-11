@@ -25,7 +25,7 @@ We need the instruments below for approximately ten weeks ([Oct 2026 – Jan 202
 Every borrowed instrument comes back with a fresh ISO/IEC 17025, NIST-traceable
 calibration performed at project expense — your meter returns in better metrological
 shape than it left. Loans are logged under chain-of-custody procedures, instruments
-live in DRACO Lab space (HEC TBD), and lenders are acknowledged as requested.
+live in [building/room], and lenders are acknowledged as requested.
 
 ## How it works (three short items — render as cards or a row, not a long list)
 
