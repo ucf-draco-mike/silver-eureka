@@ -87,9 +87,12 @@ Push, then **Settings → Pages → Deploy from a branch → `main` → `/docs`*
 
 Site URL: `https://<githubUser>.github.io/<repoName>/`.
 
-> The build output is committed under `docs/` on purpose: Pages serves it straight from
-> the branch, so the site deploys with no CI and no Actions permissions. `npm run check`
-> fails if `docs/` has drifted from the source, which is the failure this trades against.
+> The build output is committed under `docs/` so Pages can serve it straight from the
+> branch. The cost is that build output can go stale relative to `content/` — which is
+> exactly what happens when you edit a file in the web editor, since a browser commit
+> cannot run Eleventy. CI closes that gap by rebuilding and committing `docs/` on every
+> push to `main`, after the guards pass.
+>
 > (SPEC §6 says `/root`; `/docs` is the same "deploy from a branch" mode, moved into a
 > subdirectory because the site now has a build step.)
 
@@ -104,16 +107,25 @@ subject line, **before** circulating the link.
 
 ### As offers arrive
 
-Edit `status` in `content/equipment.json` — `needed` → `offered` → `secured` — then
-rebuild and commit. Secured items stay on the page, dimmed, with a green badge: visible
-progress is what encourages the next offer.
+Edit `status` in `content/equipment.json` — `needed` → `offered` → `secured`. Secured
+items stay on the page, dimmed, with a green badge: visible progress is what encourages
+the next offer.
+
+**From the GitHub web editor** (no toolchain needed): edit the file, commit to `main`,
+and wait about a minute. CI rebuilds `docs/` and commits the result, then Pages
+redeploys. You will see a follow-up "Rebuild docs/ from content/" commit from
+`github-actions[bot]` — that is the published output catching up, and it is expected.
+
+**From a clone**, if you would rather not wait:
 
 ```bash
 npm run check     # rebuilds docs/ and runs every guard
 git add content docs && git commit -m "Mark the reference DMM secured" && git push
 ```
 
-A bad `status` or a missing field fails the build rather than rendering a broken card.
+Either way a bad `status` or a missing field fails the build rather than rendering a
+broken card — and because the guards run before the rebuilt output is published, a failed
+check leaves the live site untouched rather than publishing something broken.
 
 ### Honoring the acknowledgement opt-in
 
@@ -218,8 +230,14 @@ The page tells lenders this omission is deliberate, so nobody reads it as vaguen
 | `npm run check:build` | Committed `docs/` matches the source |
 | `npm run check` | All of the above, after a fresh build |
 
+`check:html` also warns when an owner setting is filled in but appears nowhere on the
+page — which happens when a placeholder gets edited out of `copy.md` while the setting
+stays in `config.json`, leaving it looking effective while controlling nothing.
+
 CI runs everything except the sponsor-name scan, which needs the git-ignored
-`secrets.local.txt` and so has to be run locally before a push.
+`secrets.local.txt` and so has to be run locally before a push. `check:build` is
+enforced only off `main`, and only as a warning: `main` rebuilds its own output, so
+failing there would block the web-editor workflow for nothing.
 
 ---
 

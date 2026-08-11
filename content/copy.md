@@ -110,5 +110,5 @@ No public acknowledgements yet. Lenders who opt in are listed here as loans are 
 ## Footer
 
 DRACO Lab · Department of Electrical and Computer Engineering · University of Central
-Florida · mike.borowczak@ucf.edu . Questions about custody, insurance, or calibration are welcome
+Florida · mike.borowczak@ucf.edu. Questions about custody, insurance, or calibration are welcome
 — ask before you lend.

@@ -116,6 +116,40 @@ for (const value of [...attr("src"), ...attr("href")]) {
   }
 }
 
+/* --- owner settings that do nothing ------------------------------------------ */
+
+/**
+ * A setting filled in but absent from the page means the placeholder it feeds was
+ * edited out of content/ — so the value sits in config.json looking effective while
+ * changing nothing. Editing prose and editing config are separate habits, and this is
+ * where they silently disagree.
+ *
+ * Only settings that are meant to be visible are checked. `githubUser` and `repoName`
+ * feed the canonical URL, which no template renders.
+ */
+const config = JSON.parse(
+  fs.readFileSync(path.join(process.cwd(), "content", "config.json"), "utf8"),
+);
+const VISIBLE_SETTINGS = {
+  formId: "[FORM_ID]",
+  loanWindow: "[Oct 2026 – Jan 2027]",
+  location: "[building/room]",
+  contactEmail: "[contact email]",
+};
+for (const [key, placeholder] of Object.entries(VISIBLE_SETTINGS)) {
+  const value = config.owner?.[key];
+  if (!value) continue;
+  const stillDefault = value === placeholder || /^[[{].*[\]}]$/.test(value);
+  if (stillDefault) continue;
+  if (!html.includes(value)) {
+    notes.push(
+      `owner.${key} is set to "${value}" but appears nowhere on the page. ` +
+        `Its placeholder was probably edited out of content/copy.md — either restore the ` +
+        `placeholder or clear the setting, so config.json is not promising something it no longer controls.`,
+    );
+  }
+}
+
 /* --- weight budget ---------------------------------------------------------- */
 
 const bytes = (function total(dir) {
