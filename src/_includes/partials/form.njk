@@ -39,13 +39,24 @@
       <input id="f-dept" name="department" type="text" required autocomplete="organization">
     </div>
 
-    <div class="field">
-      <label for="f-equip">Equipment offered <span class="req" aria-hidden="true">*</span></label>
-      <select id="f-equip" name="equipment" required>
-        {%- for option in equipment.options %}
-        <option value="{{ option }}">{{ option }}</option>
-        {%- endfor %}
-      </select>
+    {#
+      Equipment is chosen by ticking cards above; those checkboxes are members of this
+      form via form="offer-form", so they submit natively. This block reports the
+      selection and offers the catch-all that has no card of its own.
+    #}
+    <div class="field" id="equipment-field">
+      <p class="field-label" id="equip-label">Equipment offered <span class="req" aria-hidden="true">*</span></p>
+      <p class="selection-summary" id="selection-summary" role="status">
+        <a href="#equip-h">Select one or more cards above</a>, or tick the catch-all below.
+      </p>
+      <div class="choice">
+        <input type="checkbox" id="f-equip-other" name="equipment"
+               value="Other / near-equivalent" aria-describedby="other-hint">
+        <label for="f-equip-other">Other / near-equivalent
+          <span class="choice-hint" id="other-hint">Something close, or not on the list at all. Describe it below.</span>
+        </label>
+      </div>
+      <p class="field-error" id="equipment-error" hidden>Select at least one card above, or tick "Other / near-equivalent".</p>
     </div>
 
     <div class="field">
@@ -156,7 +167,4 @@
   <div class="panel panel-err" id="form-error" hidden role="alert">
     <p>{{ copy.errorMessage }}</p>
   </div>
-
-  {# Announces the preselection made by an "Offer this" link. #}
-  <p class="visually-hidden" id="offer-live" aria-live="polite"></p>
 </section>

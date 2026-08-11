@@ -82,17 +82,51 @@ for (const required of ["_gotcha", "_subject"]) {
 if (/name="_gotcha"[^>]*>/.test(html) && /display:\s*none[^}]*honeypot/i.test(html)) {
   fail("the honeypot is display:none, which some bots skip — keep it off-screen instead");
 }
-for (const name of ["name", "email", "department", "equipment", "conditions"]) {
+for (const name of ["name", "email", "department", "conditions"]) {
   const control = new RegExp(`<(input|select)\\b[^>]*name="${name}"[^>]*>`).exec(html)?.[0];
   if (!control) fail(`the form has no "${name}" control`);
   else if (!/\brequired\b/.test(control)) fail(`the "${name}" control is not required`);
 }
 
-/* --- offer links match select options -------------------------------------- */
+/* --- equipment is a checkbox group owned by the form ------------------------ */
 
-const options = new Set(allMatches(/<option value="([^"]*)"/g).map((m) => m[1]));
-for (const offered of attr("data-offer")) {
-  if (!options.has(offered)) fail(`"Offer this" link for "${offered}" has no matching select option`);
+/**
+ * Equipment is chosen by ticking cards, which sit outside <form>. They submit only
+ * because each carries form="offer-form" — drop that attribute and the selection
+ * silently stops being sent, with nothing on the page looking wrong.
+ */
+const equipmentBoxes = allMatches(/<input\b[^>]*name="equipment"[^>]*>/g).map((m) => m[0]);
+if (equipmentBoxes.length < 2) {
+  fail(`expected an equipment checkbox per card plus a catch-all, found ${equipmentBoxes.length}`);
+}
+
+const formId = /<form\b[^>]*id="([^"]*)"/.exec(html)?.[1];
+const cardIds = new Set(attr("id").filter((id) => id.startsWith("item-")));
+for (const box of equipmentBoxes) {
+  const value = /value="([^"]*)"/.exec(box)?.[1];
+  const id = /id="([^"]*)"/.exec(box)?.[1];
+  if (!value) fail(`an equipment checkbox has no value: ${box.slice(0, 80)}`);
+  if (!/type="checkbox"/.test(box)) fail(`the equipment control "${id}" is not a checkbox`);
+  // The catch-all lives inside the form; per-card boxes do not, so they need form=.
+  const insideForm = id === "f-equip-other";
+  if (!insideForm && !new RegExp(`form="${formId}"`).test(box)) {
+    fail(`equipment checkbox "${id}" is outside the form but has no form="${formId}" attribute`);
+  }
+}
+
+const boxValues = equipmentBoxes.map((b) => /value="([^"]*)"/.exec(b)?.[1]);
+const dupValues = boxValues.filter((v, i) => boxValues.indexOf(v) !== i);
+if (dupValues.length) fail(`duplicate equipment value(s): ${[...new Set(dupValues)].join(", ")}`);
+
+/** One selectable checkbox per non-secured card, plus the catch-all. */
+const selectableCards = [...cardIds].filter(
+  (id) => !new RegExp(`id="${id}"[^>]*class="[^"]*is-secured`).test(html),
+);
+if (equipmentBoxes.length !== selectableCards.length + 1) {
+  fail(
+    `${equipmentBoxes.length} equipment checkboxes for ${selectableCards.length} selectable ` +
+      `cards — expected one each plus the catch-all`,
+  );
 }
 
 /* --- headings -------------------------------------------------------------- */

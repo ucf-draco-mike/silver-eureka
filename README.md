@@ -271,14 +271,26 @@ docs/               Build output. Committed; served by Pages. Do not edit by han
 
 ## How it behaves
 
-- **Without JavaScript** the page is complete: cards, select options, and a native POST
-  to Formspree. Formspree's own thank-you page is the fallback confirmation. The script
-  only upgrades the submit to `fetch`, keeps the visitor on the page, preselects the
-  instrument from an "Offer this" link, and hides the credit-wording field until it is
-  relevant.
-- **"Offer this"** is a link rather than a button precisely so it still reaches the form
-  with scripting off. With scripting on it preselects the instrument, sets the mail
-  subject, moves focus to the first field, and announces the change to a screen reader.
+- **Choosing equipment is clicking cards.** Each card is a `<label>` for its own
+  checkbox, so selection is native — click, tap, or focus and press Space. Any number can
+  be selected, and they all travel in one submission.
+- **Those checkboxes sit outside `<form>`**, above it on the page. They submit because
+  each carries `form="offer-form"`, which makes it a member of a form it is not nested
+  in. Remove that attribute and the selection silently stops being sent with nothing
+  looking wrong, so `check:html` asserts it on every card.
+- **Without JavaScript** the page is complete: cards select, `<details>` opens, and the
+  form posts natively to Formspree, whose own thank-you page is the fallback
+  confirmation. The script only upgrades the submit to `fetch`, keeps the visitor on the
+  page, maintains the selection summary and mail subject, and hides fields that the
+  current answers make irrelevant.
+- **One exception to that**: "at least one instrument" cannot be expressed by a checkbox
+  group in HTML — `required` on a checkbox demands that particular box. The rule is
+  enforced in script only. Without script a submission with nothing ticked still reaches
+  the inbox, which beats a form that cannot be sent.
+- **Card details** — model numbers, near-equivalents, compliance limits — are folded into
+  a `<details>` disclosure so five cards fit across. Folded away, not dropped: the
+  Section 889 constraint on the thermal camera is exactly the kind of thing that decides
+  whether someone's unit is usable.
 - **Accessibility:** semantic landmarks, one `h1` with no level skips, labelled controls,
   fieldsets for the radio and checkbox groups, 3:1 control borders and 4.5:1 text
   throughout in both schemes, visible focus rings, `prefers-reduced-motion` honored, skip

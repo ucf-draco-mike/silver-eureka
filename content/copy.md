@@ -46,6 +46,15 @@ the instrument will be doing on the bench: the engagement is under an NDA and th
 measurement design sits inside it. Your equipment will not be modified beyond standarized
 calibration. If a detail would change your decision, ask —  we can say more in a room than on a public page.
 
+## Equipment pick hint
+
+Select every card you could help with — one form covers all of them. Open "Details" on a
+card for model numbers, near-equivalents, and anything that would rule a unit out.
+
+## Equipment to-form link
+
+Go to the form
+
 ## Priority labels
 
 - critical → "Critical — our benchmarking cannot run without this"

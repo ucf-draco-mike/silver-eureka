@@ -10,14 +10,22 @@
   var form = document.getElementById("offer-form");
   if (!form) return;
 
-  var select = document.getElementById("f-equip");
   var intent = document.getElementById("f-intent");
   var subject = document.getElementById("f-subject");
-  var nameField = document.getElementById("f-name");
   var successPanel = document.getElementById("form-success");
   var errorPanel = document.getElementById("form-error");
-  var liveRegion = document.getElementById("offer-live");
   var submitButton = form.querySelector(".submit");
+
+  // Equipment lives in the cards above the form, joined to it by form="offer-form".
+  var equipmentBoxes = document.querySelectorAll('input[name="equipment"]');
+  var summary = document.getElementById("selection-summary");
+  var equipmentError = document.getElementById("equipment-error");
+
+  function selectedEquipment() {
+    return Array.prototype.filter
+      .call(equipmentBoxes, function (box) { return box.checked; })
+      .map(function (box) { return box.value; });
+  }
 
   /* --- Subject line ------------------------------------------------------- */
 
@@ -25,17 +33,47 @@
     return element && element.selectedIndex >= 0 ? element.options[element.selectedIndex] : null;
   }
 
-  /** Prefix by intent so a lead does not land in the inbox looking like a firm offer. */
+  /**
+   * Prefix by intent so a lead does not land in the inbox looking like a firm offer.
+   * One item is named outright; several are counted, because a subject line carrying
+   * five instrument names is unreadable in a mail client.
+   */
   function syncSubject() {
-    if (!subject || !select) return;
+    if (!subject) return;
     var option = chosen(intent);
     var prefix = (option && option.getAttribute("data-subject")) || "Equipment loan offer";
-    subject.value = prefix + ": " + select.value;
+    var picks = selectedEquipment();
+    var tail =
+      picks.length === 0 ? "nothing selected yet"
+      : picks.length === 1 ? picks[0]
+      : picks.length + " items";
+    subject.value = prefix + ": " + tail;
   }
 
-  if (select) {
-    select.addEventListener("change", syncSubject);
+  /* --- Selection summary --------------------------------------------------- */
+
+  function syncSummary() {
+    if (!summary) return;
+    var picks = selectedEquipment();
+    summary.classList.toggle("has-picks", picks.length > 0);
+    if (picks.length === 0) {
+      summary.innerHTML =
+        '<a href="#equip-h">Select one or more cards above</a>, or tick the catch-all below.';
+      return;
+    }
+    // textContent, not innerHTML: these strings come from the equipment data.
+    summary.textContent =
+      (picks.length === 1 ? "Offering: " : picks.length + " selected: ") + picks.join(", ");
   }
+
+  Array.prototype.forEach.call(equipmentBoxes, function (box) {
+    box.addEventListener("change", function () {
+      syncSummary();
+      syncSubject();
+      if (equipmentError && selectedEquipment().length > 0) equipmentError.hidden = true;
+    });
+  });
+  syncSummary();
 
   /* --- Loan conditions only matter for an actual loan --------------------- */
 
@@ -63,46 +101,24 @@
 
   syncSubject();
 
-  /* --- "Offer this" links ------------------------------------------------- */
+  /* --- "At least one instrument" ------------------------------------------ */
 
-  var flashTimer = null;
-
-  function flashSelect() {
-    var field = select && select.closest(".field");
-    if (!field) return;
-    field.classList.add("field-flash");
-    window.clearTimeout(flashTimer);
-    flashTimer = window.setTimeout(function () {
-      field.classList.remove("field-flash");
-    }, 4000);
+  /**
+   * A checkbox group cannot express "at least one" in HTML — `required` on a checkbox
+   * demands that particular box. So this runs in script only, and without script the
+   * constraint is unenforced: a submission with nothing ticked still reaches the inbox,
+   * which is a better outcome than a form that cannot be sent.
+   */
+  function equipmentChosen() {
+    if (selectedEquipment().length > 0) return true;
+    if (equipmentError) {
+      equipmentError.hidden = false;
+      equipmentError.scrollIntoView({ block: "center" });
+      var first = document.querySelector('input[name="equipment"]');
+      if (first) first.focus({ preventScroll: true });
+    }
+    return false;
   }
-
-  function preselect(itemName) {
-    if (!select) return false;
-    var matched = Array.prototype.some.call(select.options, function (option) {
-      if (option.value !== itemName) return false;
-      select.value = itemName;
-      return true;
-    });
-    if (!matched) return false;
-
-    syncSubject();
-    flashSelect();
-    if (liveRegion) liveRegion.textContent = "Equipment offered set to " + itemName + ".";
-    return true;
-  }
-
-  document.querySelectorAll("[data-offer]").forEach(function (link) {
-    link.addEventListener("click", function (event) {
-      var heading = document.getElementById("form-h");
-      if (!preselect(link.getAttribute("data-offer")) || !heading) return;
-
-      event.preventDefault();
-      // CSS decides smooth vs instant via prefers-reduced-motion.
-      heading.scrollIntoView({ block: "start" });
-      if (nameField) nameField.focus({ preventScroll: true });
-    });
-  });
 
   /* --- Acknowledgement: only ask for wording when it will be used --------- */
 
@@ -134,6 +150,7 @@
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
+    if (!equipmentChosen()) return;
     if (errorPanel) errorPanel.hidden = true;
     setBusy(true);
 
