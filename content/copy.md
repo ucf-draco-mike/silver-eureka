@@ -11,31 +11,29 @@ Instrument Loans — DRACO Lab Benchmarking Bench
 
 ## Headline
 
-Have one of these on a shelf? Lend it to science for a semester.
+Have one of these on a shelf? Can you lend it for a semester?
 
 ## Subhead
 
-DRACO Lab is standing up a calibrated power/performance measurement bench for an
-industry-sponsored benchmarking engagement — and we would rather borrow from colleagues
-and provide them back at our expense calibrated equipment.
+DRACO Lab has a time sensitive request and needs to stand up a calibrated power/performance
+measurement bench for a  benchmarking engagement — and we would rather borrow from colleagues
+and provide them back, at our expense, calibrated equipment.
 
 ## Intro block
 
 We need the instruments below for approximately ten weeks ([Oct 2026 – Jan 2027]).
-Every borrowed instrument comes back with a fresh ISO/IEC 17025, NIST-traceable
-calibration performed at project expense — your meter returns in better metrological
-shape than it left. Loans are logged under chain-of-custody procedures, instruments
-live in [building/room], and lenders are acknowledged as requested.
+Every borrowed instrument comes back with a ISO/IEC 17025, NIST-traceable
+calibration performed at project expense. Loans are logged under 
+chain-of-custody procedures, instruments live in [building/room],
+and lenders are acknowledged as requested.
 
 ## How it works (three short items — render as cards or a row, not a long list)
 
-1. **Offer** — two minutes on the form below, even for a near-equivalent. Close
-   often works.
+1. **Offer** — two minutes on the form below, even for a near-equivalent.
 2. **Handoff** — we log serials and condition, agree on the return date, and handle
    transport. UCF property procedures apply throughout.
 3. **Return** — on schedule, with a fresh calibration certificate. The engagement is
-   a single measurement session with a hard end date; 
-   instruments come back to you in a timely way.
+   a single measurement session with a hard end date; instruments come back to you in a timely way.
 
 ## Equipment section heading
 
@@ -45,12 +43,12 @@ What we need
 
 You'll find the equipment we're looking for here. Please note that we can not say what
 the instrument will be doing on the bench: the engagement is under an NDA and the 
-measurement design sits inside it. If a detail would change your decision, ask — 
-we can say more in a room than on a public page.
+measurement design sits inside it. Your equipment will not be modified beyond standarized
+calibration. If a detail would change your decision, ask —  we can say more in a room than on a public page.
 
 ## Priority labels
 
-- critical → "Critical — the bench cannot run without this"
+- critical → "Critical — our benchmarking cannot run without this"
 - high → "High value — saves the project meaningful cost"
 - nice → "Helpful — strengthens our bench"
 
@@ -65,9 +63,9 @@ might work, and we will tell you quickly either way.
 
 ## Form intent note
 
-A firm offer is not the only useful help. A maybe, a "not this semester, try me in the
-spring", or the name of a colleague who owns one all help me out.
-Tell me which of those this is and we will treat it accordingly.
+This is not a contract -- we're just trying to see who might be able to help
+Also, if you're not sure, a maybe, a "not this semester, try me in the
+spring", or the name of a colleague could help us.
 
 ## Success message (shown after submit)
 
