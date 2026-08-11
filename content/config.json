@@ -14,8 +14,8 @@
     "_readme": "Fill these before launch. They are substituted into the copy and the equipment data at build time, so content/ keeps its generic wording.",
 
     "formId": "meajgpnp",
-    "loanWindow": "[Oct 2026 – Jan 2027]",
-    "location": "HEC - ITAR Controlled Room",
+    "loanWindow": "Oct 2026 – Jan 2027",
+    "location": "secure DRACO Lab space (HEC)",
     "contactEmail": "mike.borowczak@ucf.edu",
     "githubUser": "ucf-draco-mike",
     "repoName": "equipment-loans"
@@ -40,7 +40,7 @@
   "hidden": {
     "_readme": "Withhold individual records without deleting them. A hidden instrument disappears from the cards AND from the form dropdown, and stops counting toward the progress line — so ask for it privately by email instead. Use this when an item is too revealing to list publicly: the notes never state a purpose, but a distinctive item can still narrow down the design on its own.",
 
-    "equipment": [],
+    "equipment": ["ir-camera", "workstation","gpu-time"],
     "benefits": []
   }
 }
