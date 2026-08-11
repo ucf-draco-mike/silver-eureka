@@ -127,8 +127,10 @@ a:hover { color: var(--ink); }
 
 /* --- Layout --------------------------------------------------------------- */
 
+/* Wide enough for five equipment cards. Prose inside stays at --measure, so only the
+   grid actually uses the extra width. */
 .wrap {
-  max-width: 62rem;
+  max-width: 76rem;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -217,6 +219,39 @@ h2 {
   color: var(--muted);
 }
 
+.pick-hint {
+  margin: 10px 0 0;
+  font-size: 0.92rem;
+}
+
+.field-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin: 0 0 4px;
+}
+.selection-summary {
+  margin: 0 0 8px;
+  padding: 8px 10px;
+  border-radius: 5px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+.selection-summary.has-picks {
+  background: var(--accent-soft);
+  border-color: var(--accent-ink);
+}
+.field-error {
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  border-radius: 5px;
+  background: var(--err-soft);
+  border: 1px solid var(--err);
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+
 .progress {
   margin: 8px 0 4px;
   font-size: 0.92rem;
@@ -235,11 +270,15 @@ h2 {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr));
-  gap: 12px;
+  /* ~5 across at full width, stepping down to 1 on a phone. */
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  gap: 10px;
   margin: 0;
   padding: 0;
   list-style: none;
+  /* Cards size to their own content, so opening one card's details does not stretch
+     every other card in the row into a column of empty space. */
+  align-items: start;
 }
 
 .card {
@@ -247,15 +286,18 @@ h2 {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 14px 15px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 0;
+  overflow: hidden;
 }
 .card h3, .card h4 { margin: 0; font-size: 1.02rem; }
 .card p { margin: 0; font-size: 0.9rem; }
 .card .meta { color: var(--muted); font-size: 0.85rem; }
 .card.is-secured { opacity: 0.62; }
+
+/* Cards that are not selectable (benefits, lenders) keep the old padded box. */
+.benefits .card, .lenders .card { padding: 14px 15px; gap: 8px; overflow: visible; }
 
 .badge {
   align-self: flex-start;
@@ -271,8 +313,119 @@ h2 {
 .badge.offered { background: var(--warn-soft); border-color: var(--warn); color: var(--warn); }
 .badge.secured { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); }
 
-.offer-btn {
+/* --- Selectable equipment card ---------------------------------------------- */
+
+/* The checkbox is the control; the label is the whole clickable face. Kept in the
+   accessibility tree and focusable — only visually replaced by .card-pick-box. */
+.card-check {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.card-face {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0;
+  padding: 12px 13px;
+  font-weight: 400;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.card-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+.card-face .meta { color: var(--muted); font-size: 0.82rem; }
+
+/* Hover only where a pointer can actually hover — avoids sticky states on touch. */
+@media (hover: hover) {
+  .card-face:hover { background: var(--accent-soft); }
+}
+
+.card-pick {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   margin-top: auto;
+  padding-top: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+.card-pick-box {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: none;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--paper);
+}
+
+/* Selected. The sibling selector does the work everywhere; :has() adds the outer
+   border on browsers that support it. */
+.card-check:checked ~ .card-face { background: var(--accent-soft); }
+.card-check:checked ~ .card-face .card-pick { color: var(--accent-ink); }
+.card-check:checked ~ .card-face .card-pick-box {
+  background: var(--accent-ink);
+  border-color: var(--accent-ink);
+  position: relative;
+}
+.card-check:checked ~ .card-face .card-pick-box::after {
+  content: "";
+  position: absolute;
+  left: 0.3rem; top: 0.12rem;
+  width: 0.3rem; height: 0.58rem;
+  border: solid var(--card);
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
+}
+.card-check:checked ~ .card-face .card-pick-text::after { content: "ed"; }
+
+.card:has(.card-check:checked) { border-color: var(--accent-ink); }
+
+/* Focus lands on the visually-hidden input, so show the ring on the face instead. */
+.card-check:focus-visible ~ .card-face {
+  outline: 3px solid var(--focus);
+  outline-offset: -3px;
+  border-radius: var(--radius);
+}
+
+/* --- Card details disclosure ------------------------------------------------- */
+
+.card-more {
+  border-top: 1px solid var(--line);
+  font-size: 0.85rem;
+}
+.card-more > summary {
+  padding: 7px 13px;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  list-style-position: inside;
+}
+.card-more > summary:hover { color: var(--ink); }
+.card-more[open] > summary { color: var(--ink); }
+.card-more-body {
+  padding: 0 13px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.card-more-body p { font-size: 0.84rem; }
+
+.to-form { margin: 18px 0 0; }
+
+.offer-btn {
   align-self: flex-start;
   display: inline-block;
   background: none;
@@ -280,9 +433,10 @@ h2 {
   text-decoration: none;
   border: 1.5px solid var(--ink);
   border-radius: 5px;
-  padding: 7px 14px;
+  padding: 8px 16px;
   font: inherit;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
 }
 .offer-btn:hover {
@@ -428,12 +582,6 @@ textarea { min-height: 90px; resize: vertical; }
 .panel p { margin: 0; }
 .panel-ok { background: var(--ok-soft); border: 1px solid var(--ok); }
 .panel-err { background: var(--err-soft); border: 1px solid var(--err); }
-
-/* Marks the select an "Offer this" link just filled in. */
-.field-flash select { border-color: var(--accent-ink); box-shadow: 0 0 0 3px var(--accent-soft); }
-@media (prefers-reduced-motion: no-preference) {
-  .field-flash select { transition: box-shadow 0.2s ease, border-color 0.2s ease; }
-}
 
 /* --- Footer --------------------------------------------------------------- */
 

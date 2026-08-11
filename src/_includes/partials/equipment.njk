@@ -5,6 +5,8 @@
   <div class="prose note-scope">{{ copy.equipmentNoteHtml | safe }}</div>
   {%- endif %}
 
+  <p class="prose pick-hint" id="pick-hint">{{ copy.equipmentPickHint }}</p>
+
   {%- if site.sections.progressCount and equipment.stats.covered > 0 %}
   <p class="progress" role="status">
     {{ equipment.stats.covered }} of {{ equipment.stats.total }}
@@ -19,25 +21,50 @@
     {%- for item in group.items %}
     <li>
       <article class="card{% if item.isSecured %} is-secured{% endif %}" id="item-{{ item.id }}">
-        <p class="badge {{ item.status }}">{{ item.status }}</p>
-        <h4>{{ item.name }}</h4>
-        <p class="meta model">{{ item.examples }}</p>
-        <p class="meta">Qty {{ item.qty }} · needed ~{{ item.weeks_needed }} weeks</p>
-        {%- if item.alternatives %}
-        <p><strong>Close counts:</strong> {{ item.alternatives }}</p>
-        {%- endif %}
-        {%- if item.notes %}
-        <p>{{ item.notes }}</p>
-        {%- endif %}
+        {#
+          The checkbox IS the selection — no script involved. `form="offer-form"` makes
+          it a member of the form further down the page, so a card ticked here submits
+          with everything else even when JavaScript never runs. The label covers the
+          whole card face, which is what makes "click the card" work natively.
+        #}
         {%- if not item.isSecured %}
-        <a class="offer-btn" href="#f-equip" data-offer="{{ item.name }}">
-          Offer this<span aria-hidden="true"> →</span>
-          <span class="visually-hidden">: {{ item.name }}</span>
-        </a>
+        <input class="card-check" type="checkbox" id="pick-{{ item.id }}"
+               name="equipment" value="{{ item.name }}" form="offer-form"
+               aria-describedby="pick-hint">
         {%- endif %}
+        <label class="card-face" for="pick-{{ item.id }}">
+          <span class="badge {{ item.status }}">{{ item.status }}</span>
+          <span class="card-name">{{ item.name }}</span>
+          <span class="meta">Qty {{ item.qty }} · ~{{ item.weeks_needed }} wk</span>
+          {%- if not item.isSecured %}
+          <span class="card-pick" aria-hidden="true">
+            <span class="card-pick-box"></span>
+            <span class="card-pick-text">Select</span>
+          </span>
+          {%- endif %}
+        </label>
+
+        {# Kept, not cut: the compliance limits and near-equivalents are the details
+           that decide whether someone's unit is usable. Folded away, not deleted. #}
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p class="meta model">{{ item.examples }}</p>
+            {%- if item.alternatives %}
+            <p><strong>Close counts:</strong> {{ item.alternatives }}</p>
+            {%- endif %}
+            {%- if item.notes %}
+            <p>{{ item.notes }}</p>
+            {%- endif %}
+          </div>
+        </details>
       </article>
     </li>
     {%- endfor %}
   </ul>
   {%- endfor %}
+
+  <p class="to-form">
+    <a class="offer-btn" href="#form-h">{{ copy.equipmentToFormLink }}<span aria-hidden="true"> →</span></a>
+  </p>
 </section>

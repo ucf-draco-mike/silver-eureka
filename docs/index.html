@@ -8,7 +8,7 @@
 <meta name="color-scheme" content="light dark">
 <title>Instrument Loans — DRACO Lab Benchmarking Bench</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23161512'/%3E%3Cpath d='M6 21h4l3-9 3 14 3-11 2 6h5' fill='none' stroke='%23FFC904' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/css/site.css?v=5c6a024d">
+<link rel="stylesheet" href="assets/css/site.css?v=1cf2a2eb">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -51,78 +51,145 @@ and lenders are acknowledged as requested.</p>
   <h2 id="equip-h">What we need</h2>
   <div class="prose note-scope"><p>You'll find the equipment we're looking for here. Please note that we can not say what
 the instrument will be doing on the bench: the engagement is under an NDA and the
-measurement design sits inside it. Your equipment will not be modified beyond standarized
-calibration. If a detail would change your decision, ask —  we can say more in a room than on a public page.</p></div>
+measurement design sits inside it. Your equipment will not be modified beyond standardized
+calibration. If a detail would change your decision, ask — we can say more in a room than on a public page.</p></div>
+
+  <p class="prose pick-hint" id="pick-hint">Select every card you could help with — one form covers all of them. Open &quot;Details&quot; on a card for model numbers, near-equivalents, and anything that would rule a unit out.</p>
   <h3 class="prio-label" id="prio-critical">Critical — our benchmarking cannot run without this</h3>
   <ul class="grid" aria-labelledby="prio-critical">
     <li>
       <article class="card" id="item-power-analyzer">
-        <p class="badge needed">needed</p>
-        <h4>DC power analyzer / precision SMU</h4>
-        <p class="meta model">Keysight N6705C, B2902B, or equivalent precision source/measure with integrated energy logging</p>
-        <p class="meta">Qty 1 · needed ~10 weeks</p>
-        <p><strong>Close counts:</strong> Any bench power analyzer or SMU capable of precision rail sourcing/measurement with data logging</p>
-        <p>Remote control over LAN or USB is required; a front-panel-only unit will not work here. Send the interface cable if it is not a standard one.</p>
-        <a class="offer-btn" href="#f-equip" data-offer="DC power analyzer / precision SMU">
-          Offer this<span aria-hidden="true"> →</span>
-          <span class="visually-hidden">: DC power analyzer / precision SMU</span>
-        </a>
+        
+        <input class="card-check" type="checkbox" id="pick-power-analyzer"
+               name="equipment" value="DC power analyzer / precision SMU" form="offer-form"
+               aria-describedby="pick-hint">
+        <label class="card-face" for="pick-power-analyzer">
+          <span class="badge needed">needed</span>
+          <span class="card-name">DC power analyzer / precision SMU</span>
+          <span class="meta">Qty 1 · ~10 wk</span>
+          <span class="card-pick" aria-hidden="true">
+            <span class="card-pick-box"></span>
+            <span class="card-pick-text">Select</span>
+          </span>
+        </label>
+
+        
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p class="meta model">Keysight N6705C, B2902B, or equivalent precision source/measure with integrated energy logging</p>
+            <p><strong>Close counts:</strong> Any bench power analyzer or SMU capable of precision rail sourcing/measurement with data logging</p>
+            <p>Remote control over LAN or USB is required; a front-panel-only unit will not work here. Send the interface cable if it is not a standard one.</p>
+          </div>
+        </details>
       </article>
     </li>
     <li>
       <article class="card" id="item-daq">
-        <p class="badge needed">needed</p>
-        <h4>High-rate multichannel DAQ</h4>
-        <p class="meta model">NI USB-6363 or other X-series; any DAQ with 4+ differential channels at 100 kS/s per channel or better</p>
-        <p class="meta">Qty 1 · needed ~10 weeks</p>
-        <p><strong>Close counts:</strong> Simultaneous-sampling units preferred; at least one hardware-timestamped digital input line required</p>
-        <p>The original terminal block or connector kit is worth including if you still have it. Third-party breakouts are rarely a clean fit.</p>
-        <a class="offer-btn" href="#f-equip" data-offer="High-rate multichannel DAQ">
-          Offer this<span aria-hidden="true"> →</span>
-          <span class="visually-hidden">: High-rate multichannel DAQ</span>
-        </a>
+        
+        <input class="card-check" type="checkbox" id="pick-daq"
+               name="equipment" value="High-rate multichannel DAQ" form="offer-form"
+               aria-describedby="pick-hint">
+        <label class="card-face" for="pick-daq">
+          <span class="badge needed">needed</span>
+          <span class="card-name">High-rate multichannel DAQ</span>
+          <span class="meta">Qty 1 · ~10 wk</span>
+          <span class="card-pick" aria-hidden="true">
+            <span class="card-pick-box"></span>
+            <span class="card-pick-text">Select</span>
+          </span>
+        </label>
+
+        
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p class="meta model">NI USB-6363 or other X-series; any DAQ with 4+ differential channels at 100 kS/s per channel or better</p>
+            <p><strong>Close counts:</strong> Simultaneous-sampling units preferred; at least one hardware-timestamped digital input line required</p>
+            <p>The original terminal block or connector kit is worth including if you still have it. Third-party breakouts are rarely a clean fit.</p>
+          </div>
+        </details>
       </article>
     </li>
     <li>
       <article class="card" id="item-dmm">
-        <p class="badge needed">needed</p>
-        <h4>Bench reference DMM (6.5-digit or better)</h4>
-        <p class="meta model">Keysight 34465A/34470A, Fluke 8846A, Keithley DMM6500</p>
-        <p class="meta">Qty 1 · needed ~10 weeks</p>
-        <p><strong>Close counts:</strong> Any 6.5-digit bench meter; a current calibration certificate is ideal, and we can calibrate if there is not one</p>
-        <p>If it is already in calibration, send the certificate along with it. If it is not, ours will be the fresh one.</p>
-        <a class="offer-btn" href="#f-equip" data-offer="Bench reference DMM (6.5-digit or better)">
-          Offer this<span aria-hidden="true"> →</span>
-          <span class="visually-hidden">: Bench reference DMM (6.5-digit or better)</span>
-        </a>
+        
+        <input class="card-check" type="checkbox" id="pick-dmm"
+               name="equipment" value="Bench reference DMM (6.5-digit or better)" form="offer-form"
+               aria-describedby="pick-hint">
+        <label class="card-face" for="pick-dmm">
+          <span class="badge needed">needed</span>
+          <span class="card-name">Bench reference DMM (6.5-digit or better)</span>
+          <span class="meta">Qty 1 · ~10 wk</span>
+          <span class="card-pick" aria-hidden="true">
+            <span class="card-pick-box"></span>
+            <span class="card-pick-text">Select</span>
+          </span>
+        </label>
+
+        
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p class="meta model">Keysight 34465A/34470A, Fluke 8846A, Keithley DMM6500</p>
+            <p><strong>Close counts:</strong> Any 6.5-digit bench meter; a current calibration certificate is ideal, and we can calibrate if there is not one</p>
+            <p>If it is already in calibration, send the certificate along with it. If it is not, ours will be the fresh one.</p>
+          </div>
+        </details>
       </article>
     </li>
     <li>
       <article class="card" id="item-scope">
-        <p class="badge needed">needed</p>
-        <h4>Oscilloscope, 4-channel, 200 MHz+</h4>
-        <p class="meta model">Keysight InfiniiVision, Tektronix MSO/DSO series, Rigol MSO5000-class</p>
-        <p class="meta">Qty 1 · needed ~8 weeks</p>
-        <p><strong>Close counts:</strong> MSO preferred; SCPI or USB remote control strongly preferred</p>
-        <p>Probes and the original compensation kit are welcome alongside the instrument. Remote control matters more to us than bandwidth headroom.</p>
-        <a class="offer-btn" href="#f-equip" data-offer="Oscilloscope, 4-channel, 200 MHz+">
-          Offer this<span aria-hidden="true"> →</span>
-          <span class="visually-hidden">: Oscilloscope, 4-channel, 200 MHz+</span>
-        </a>
+        
+        <input class="card-check" type="checkbox" id="pick-scope"
+               name="equipment" value="Oscilloscope, 4-channel, 200 MHz+" form="offer-form"
+               aria-describedby="pick-hint">
+        <label class="card-face" for="pick-scope">
+          <span class="badge needed">needed</span>
+          <span class="card-name">Oscilloscope, 4-channel, 200 MHz+</span>
+          <span class="meta">Qty 1 · ~8 wk</span>
+          <span class="card-pick" aria-hidden="true">
+            <span class="card-pick-box"></span>
+            <span class="card-pick-text">Select</span>
+          </span>
+        </label>
+
+        
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p class="meta model">Keysight InfiniiVision, Tektronix MSO/DSO series, Rigol MSO5000-class</p>
+            <p><strong>Close counts:</strong> MSO preferred; SCPI or USB remote control strongly preferred</p>
+            <p>Probes and the original compensation kit are welcome alongside the instrument. Remote control matters more to us than bandwidth headroom.</p>
+          </div>
+        </details>
       </article>
     </li>
     <li>
       <article class="card" id="item-current-probe">
-        <p class="badge needed">needed</p>
-        <h4>Current probe + amplifier</h4>
-        <p class="meta model">Tektronix TCP0030A with TCPA amplifier, or Hall/clamp probe with bench amplifier</p>
-        <p class="meta">Qty 1 · needed ~5 weeks</p>
-        <p><strong>Close counts:</strong> Any calibrated DC-capable current probe covering 0–15 A</p>
-        <p>The matching amplifier needs to travel with the probe head, along with any degauss or zeroing fixture.</p>
-        <a class="offer-btn" href="#f-equip" data-offer="Current probe + amplifier">
-          Offer this<span aria-hidden="true"> →</span>
-          <span class="visually-hidden">: Current probe + amplifier</span>
-        </a>
+        
+        <input class="card-check" type="checkbox" id="pick-current-probe"
+               name="equipment" value="Current probe + amplifier" form="offer-form"
+               aria-describedby="pick-hint">
+        <label class="card-face" for="pick-current-probe">
+          <span class="badge needed">needed</span>
+          <span class="card-name">Current probe + amplifier</span>
+          <span class="meta">Qty 1 · ~5 wk</span>
+          <span class="card-pick" aria-hidden="true">
+            <span class="card-pick-box"></span>
+            <span class="card-pick-text">Select</span>
+          </span>
+        </label>
+
+        
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p class="meta model">Tektronix TCP0030A with TCPA amplifier, or Hall/clamp probe with bench amplifier</p>
+            <p><strong>Close counts:</strong> Any calibrated DC-capable current probe covering 0–15 A</p>
+            <p>The matching amplifier needs to travel with the probe head, along with any degauss or zeroing fixture.</p>
+          </div>
+        </details>
       </article>
     </li>
   </ul>
@@ -130,16 +197,29 @@ calibration. If a detail would change your decision, ask —  we can say more in
   <ul class="grid" aria-labelledby="prio-high">
     <li>
       <article class="card" id="item-e-load">
-        <p class="badge needed">needed</p>
-        <h4>Precision electronic load or resistor bank</h4>
-        <p class="meta model">Keysight/BK bench e-load, or a precision power resistor set</p>
-        <p class="meta">Qty 1 · needed ~6 weeks</p>
-        <p><strong>Close counts:</strong> Anything that can hold a stable, repeatable setpoint</p>
-        <p>Front-panel-only control is acceptable for this one. A resistor set needs its published tolerances.</p>
-        <a class="offer-btn" href="#f-equip" data-offer="Precision electronic load or resistor bank">
-          Offer this<span aria-hidden="true"> →</span>
-          <span class="visually-hidden">: Precision electronic load or resistor bank</span>
-        </a>
+        
+        <input class="card-check" type="checkbox" id="pick-e-load"
+               name="equipment" value="Precision electronic load or resistor bank" form="offer-form"
+               aria-describedby="pick-hint">
+        <label class="card-face" for="pick-e-load">
+          <span class="badge needed">needed</span>
+          <span class="card-name">Precision electronic load or resistor bank</span>
+          <span class="meta">Qty 1 · ~6 wk</span>
+          <span class="card-pick" aria-hidden="true">
+            <span class="card-pick-box"></span>
+            <span class="card-pick-text">Select</span>
+          </span>
+        </label>
+
+        
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p class="meta model">Keysight/BK bench e-load, or a precision power resistor set</p>
+            <p><strong>Close counts:</strong> Anything that can hold a stable, repeatable setpoint</p>
+            <p>Front-panel-only control is acceptable for this one. A resistor set needs its published tolerances.</p>
+          </div>
+        </details>
       </article>
     </li>
   </ul>
@@ -147,61 +227,117 @@ calibration. If a detail would change your decision, ask —  we can say more in
   <ul class="grid" aria-labelledby="prio-nice">
     <li>
       <article class="card" id="item-tc-logger">
-        <p class="badge needed">needed</p>
-        <h4>Thermocouple logger / TC module</h4>
-        <p class="meta model">Keysight DAQ970A with TC card, Omega handheld loggers, any multi-channel TC readout</p>
-        <p class="meta">Qty 1 · needed ~8 weeks</p>
-        <p><strong>Close counts:</strong> Two channels minimum</p>
-        <p>Include the thermocouples you normally pair with it if they are not captive.</p>
-        <a class="offer-btn" href="#f-equip" data-offer="Thermocouple logger / TC module">
-          Offer this<span aria-hidden="true"> →</span>
-          <span class="visually-hidden">: Thermocouple logger / TC module</span>
-        </a>
+        
+        <input class="card-check" type="checkbox" id="pick-tc-logger"
+               name="equipment" value="Thermocouple logger / TC module" form="offer-form"
+               aria-describedby="pick-hint">
+        <label class="card-face" for="pick-tc-logger">
+          <span class="badge needed">needed</span>
+          <span class="card-name">Thermocouple logger / TC module</span>
+          <span class="meta">Qty 1 · ~8 wk</span>
+          <span class="card-pick" aria-hidden="true">
+            <span class="card-pick-box"></span>
+            <span class="card-pick-text">Select</span>
+          </span>
+        </label>
+
+        
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p class="meta model">Keysight DAQ970A with TC card, Omega handheld loggers, any multi-channel TC readout</p>
+            <p><strong>Close counts:</strong> Two channels minimum</p>
+            <p>Include the thermocouples you normally pair with it if they are not captive.</p>
+          </div>
+        </details>
       </article>
     </li>
     <li>
       <article class="card" id="item-interposer">
-        <p class="badge needed">needed</p>
-        <h4>PCIe riser/interposer with power breakout</h4>
-        <p class="meta model">Adexelec or similar PCIe extender exposing slot 12 V / 3.3 V rails</p>
-        <p class="meta">Qty 1 · needed ~10 weeks</p>
-        <p><strong>Close counts:</strong> An older Gen3 unit is still useful to us</p>
-        <p>New units carry a long lead time, so even a short loan helps.</p>
-        <a class="offer-btn" href="#f-equip" data-offer="PCIe riser/interposer with power breakout">
-          Offer this<span aria-hidden="true"> →</span>
-          <span class="visually-hidden">: PCIe riser/interposer with power breakout</span>
-        </a>
+        
+        <input class="card-check" type="checkbox" id="pick-interposer"
+               name="equipment" value="PCIe riser/interposer with power breakout" form="offer-form"
+               aria-describedby="pick-hint">
+        <label class="card-face" for="pick-interposer">
+          <span class="badge needed">needed</span>
+          <span class="card-name">PCIe riser/interposer with power breakout</span>
+          <span class="meta">Qty 1 · ~10 wk</span>
+          <span class="card-pick" aria-hidden="true">
+            <span class="card-pick-box"></span>
+            <span class="card-pick-text">Select</span>
+          </span>
+        </label>
+
+        
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p class="meta model">Adexelec or similar PCIe extender exposing slot 12 V / 3.3 V rails</p>
+            <p><strong>Close counts:</strong> An older Gen3 unit is still useful to us</p>
+            <p>New units carry a long lead time, so even a short loan helps.</p>
+          </div>
+        </details>
       </article>
     </li>
     <li>
       <article class="card" id="item-jetson">
-        <p class="badge needed">needed</p>
-        <h4>NVIDIA Jetson Orin dev kit</h4>
-        <p class="meta model">Orin AGX / NX dev kits</p>
-        <p class="meta">Qty 1 · needed ~4 weeks</p>
-        <p><strong>Close counts:</strong> Xavier-class acceptable</p>
-        <p>The original power supply and carrier board are more useful to us than a bare module.</p>
-        <a class="offer-btn" href="#f-equip" data-offer="NVIDIA Jetson Orin dev kit">
-          Offer this<span aria-hidden="true"> →</span>
-          <span class="visually-hidden">: NVIDIA Jetson Orin dev kit</span>
-        </a>
+        
+        <input class="card-check" type="checkbox" id="pick-jetson"
+               name="equipment" value="NVIDIA Jetson Orin dev kit" form="offer-form"
+               aria-describedby="pick-hint">
+        <label class="card-face" for="pick-jetson">
+          <span class="badge needed">needed</span>
+          <span class="card-name">NVIDIA Jetson Orin dev kit</span>
+          <span class="meta">Qty 1 · ~4 wk</span>
+          <span class="card-pick" aria-hidden="true">
+            <span class="card-pick-box"></span>
+            <span class="card-pick-text">Select</span>
+          </span>
+        </label>
+
+        
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p class="meta model">Orin AGX / NX dev kits</p>
+            <p><strong>Close counts:</strong> Xavier-class acceptable</p>
+            <p>The original power supply and carrier board are more useful to us than a bare module.</p>
+          </div>
+        </details>
       </article>
     </li>
     <li>
       <article class="card" id="item-fpga">
-        <p class="badge needed">needed</p>
-        <h4>FPGA development board</h4>
-        <p class="meta model">AMD/Xilinx VCU/ZCU-class or Intel/Altera dev boards</p>
-        <p class="meta">Qty 1 · needed ~4 weeks</p>
-        <p><strong>Close counts:</strong> Board class is negotiable — talk to us</p>
-        <p>Include the programming cable if it is not integrated, and any node-locked licence details we would need.</p>
-        <a class="offer-btn" href="#f-equip" data-offer="FPGA development board">
-          Offer this<span aria-hidden="true"> →</span>
-          <span class="visually-hidden">: FPGA development board</span>
-        </a>
+        
+        <input class="card-check" type="checkbox" id="pick-fpga"
+               name="equipment" value="FPGA development board" form="offer-form"
+               aria-describedby="pick-hint">
+        <label class="card-face" for="pick-fpga">
+          <span class="badge needed">needed</span>
+          <span class="card-name">FPGA development board</span>
+          <span class="meta">Qty 1 · ~4 wk</span>
+          <span class="card-pick" aria-hidden="true">
+            <span class="card-pick-box"></span>
+            <span class="card-pick-text">Select</span>
+          </span>
+        </label>
+
+        
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p class="meta model">AMD/Xilinx VCU/ZCU-class or Intel/Altera dev boards</p>
+            <p><strong>Close counts:</strong> Board class is negotiable — talk to us</p>
+            <p>Include the programming cable if it is not integrated, and any node-locked licence details we would need.</p>
+          </div>
+        </details>
       </article>
     </li>
   </ul>
+
+  <p class="to-form">
+    <a class="offer-btn" href="#form-h">Go to the form<span aria-hidden="true"> →</span></a>
+  </p>
 </section>
 
   
@@ -321,7 +457,7 @@ might work, and we will tell you quickly either way.</p></div>
                 data-subject="Lead"
                 data-needs-conditions="no">I do not have one, but I know who might</option>
       </select>
-      <div class="hint" id="intent-hint"><p>This is not a contract -- we're just trying to see who might be able to help
+      <div class="hint" id="intent-hint"><p>This is not a contract -- we're just trying to see who might be able to help.
 Also, if you're not sure, a maybe, a &quot;not this semester, try me in the
 spring&quot;, or the name of a colleague could help us.</p></div>
     </div>
@@ -341,21 +477,20 @@ spring&quot;, or the name of a colleague could help us.</p></div>
       <input id="f-dept" name="department" type="text" required autocomplete="organization">
     </div>
 
-    <div class="field">
-      <label for="f-equip">Equipment offered <span class="req" aria-hidden="true">*</span></label>
-      <select id="f-equip" name="equipment" required>
-        <option value="DC power analyzer / precision SMU">DC power analyzer / precision SMU</option>
-        <option value="High-rate multichannel DAQ">High-rate multichannel DAQ</option>
-        <option value="Bench reference DMM (6.5-digit or better)">Bench reference DMM (6.5-digit or better)</option>
-        <option value="Oscilloscope, 4-channel, 200 MHz+">Oscilloscope, 4-channel, 200 MHz+</option>
-        <option value="Current probe + amplifier">Current probe + amplifier</option>
-        <option value="Precision electronic load or resistor bank">Precision electronic load or resistor bank</option>
-        <option value="Thermocouple logger / TC module">Thermocouple logger / TC module</option>
-        <option value="PCIe riser/interposer with power breakout">PCIe riser/interposer with power breakout</option>
-        <option value="NVIDIA Jetson Orin dev kit">NVIDIA Jetson Orin dev kit</option>
-        <option value="FPGA development board">FPGA development board</option>
-        <option value="Other / near-equivalent">Other / near-equivalent</option>
-      </select>
+    
+    <div class="field" id="equipment-field">
+      <p class="field-label" id="equip-label">Equipment offered <span class="req" aria-hidden="true">*</span></p>
+      <p class="selection-summary" id="selection-summary" role="status">
+        <a href="#equip-h">Select one or more cards above</a>, or tick the catch-all below.
+      </p>
+      <div class="choice">
+        <input type="checkbox" id="f-equip-other" name="equipment"
+               value="Other / near-equivalent" aria-describedby="other-hint">
+        <label for="f-equip-other">Other / near-equivalent
+          <span class="choice-hint" id="other-hint">Something close, or not on the list at all. Describe it below.</span>
+        </label>
+      </div>
+      <p class="field-error" id="equipment-error" hidden>Select at least one card above, or tick "Other / near-equivalent".</p>
     </div>
 
     <div class="field">
@@ -497,9 +632,6 @@ spring&quot;, or the name of a colleague could help us.</p></div>
   <div class="panel panel-err" id="form-error" hidden role="alert">
     <p>The form did not send. Please email me directly at mike.borowczak@ucf.edu</p>
   </div>
-
-  
-  <p class="visually-hidden" id="offer-live" aria-live="polite"></p>
 </section>
 
 </main>
@@ -513,6 +645,6 @@ Florida · <a href="mailto:mike.borowczak@ucf.edu">mike.borowczak@ucf.edu</a>. Q
 </footer>
 
 
-<script src="assets/js/site.js?v=ceb06665" defer></script>
+<script src="assets/js/site.js?v=53d5ae31" defer></script>
 </body>
 </html>
