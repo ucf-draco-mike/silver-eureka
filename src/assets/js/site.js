@@ -11,6 +11,7 @@
   if (!form) return;
 
   var select = document.getElementById("f-equip");
+  var intent = document.getElementById("f-intent");
   var subject = document.getElementById("f-subject");
   var nameField = document.getElementById("f-name");
   var successPanel = document.getElementById("form-success");
@@ -20,15 +21,47 @@
 
   /* --- Subject line ------------------------------------------------------- */
 
+  function chosen(element) {
+    return element && element.selectedIndex >= 0 ? element.options[element.selectedIndex] : null;
+  }
+
+  /** Prefix by intent so a lead does not land in the inbox looking like a firm offer. */
   function syncSubject() {
     if (!subject || !select) return;
-    subject.value = "Equipment loan offer: " + select.value;
+    var option = chosen(intent);
+    var prefix = (option && option.getAttribute("data-subject")) || "Equipment loan offer";
+    subject.value = prefix + ": " + select.value;
   }
 
   if (select) {
     select.addEventListener("change", syncSubject);
-    syncSubject();
   }
+
+  /* --- Loan conditions only matter for an actual loan --------------------- */
+
+  var conditionsField = document.getElementById("conditions-field");
+  var conditions = document.getElementById("f-cond");
+
+  function syncConditions() {
+    if (!conditionsField || !conditions || !intent) return;
+    var option = chosen(intent);
+    var needed = !option || option.getAttribute("data-needs-conditions") !== "no";
+    // Clear `required` before hiding: a hidden required control blocks submission
+    // with an error the visitor cannot see or reach.
+    if (needed) conditions.setAttribute("required", "");
+    else conditions.removeAttribute("required");
+    conditionsField.hidden = !needed;
+  }
+
+  if (intent) {
+    intent.addEventListener("change", function () {
+      syncSubject();
+      syncConditions();
+    });
+    syncConditions();
+  }
+
+  syncSubject();
 
   /* --- "Offer this" links ------------------------------------------------- */
 

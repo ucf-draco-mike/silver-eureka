@@ -8,7 +8,7 @@
 <meta name="color-scheme" content="light dark">
 <title>Instrument Loans — DRACO Lab Benchmarking Bench</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23161512'/%3E%3Cpath d='M6 21h4l3-9 3 14 3-11 2 6h5' fill='none' stroke='%23FFC904' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/css/site.css?v=e5dde5c6">
+<link rel="stylesheet" href="assets/css/site.css?v=5c6a024d">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -31,7 +31,6 @@ shape than it left. Loans are logged under chain-of-custody procedures, instrume
 live in DRACO Lab space ([building/room]) or stay in your lab under a supervised-use
 arrangement, and lenders are acknowledged in resulting publications.</p>
   </div>
-
   <h3 class="visually-hidden" id="steps-h">How it works</h3>
   <ol class="steps" aria-labelledby="steps-h">
     <li class="step">
@@ -51,7 +50,6 @@ arrangement, and lenders are acknowledged in resulting publications.</p>
 
   <section class="section" aria-labelledby="equip-h">
   <h2 id="equip-h">What we need</h2>
-
   <div class="prose note-scope"><p>Each entry says what would make your unit suitable and what needs to travel with it. It
 does not say what the instrument will be doing on the bench: the engagement is under a
 non-disclosure agreement and the measurement design sits inside it. If a detail would
@@ -249,7 +247,8 @@ change your decision, ask — we can say more in a room than on a public page.</
   </ul>
 </section>
 
-  <section class="section" aria-labelledby="benefits-h">
+  
+<section class="section" aria-labelledby="benefits-h">
   <h2 id="benefits-h">What you get back</h2>
   <div class="prose"><p>A loan should not be a favor you regret. The calibration is the headline of the return
 side, but it is not the whole of it. Items marked &quot;ask on the form&quot; happen only if you
@@ -327,7 +326,6 @@ ask for them — they are offers, not obligations.</p></div>
       </article>
     </li>
   </ul>
-
   <div class="intro intro-ack" id="acknowledgement">
     <h3>Acknowledgement, on your terms</h3>
     <p>Acknowledgement is opt-in and the default is nothing. Say nothing on the form and we
@@ -337,7 +335,6 @@ goes out. Some departments would rather not advertise which instruments left the
 building. That is a good reason, and we will not ask twice.</p>
   </div>
 </section>
-
 <section class="section" aria-labelledby="lenders-h">
   <h2 id="lenders-h">Lenders</h2>
   <p class="empty">No public acknowledgements yet. Lenders who opt in are listed here as loans are logged.</p>
@@ -351,6 +348,26 @@ often work, and we will tell you quickly either way.</p></div>
   
   <form id="offer-form" action="https://formspree.io/f/{FORM_ID}" method="POST">
     <p class="required-note" id="required-note">Fields marked <span class="req">*</span> are required.</p>
+    <div class="field field-intent">
+      <label for="f-intent">What are you telling us? <span class="req" aria-hidden="true">*</span></label>
+      <select id="f-intent" name="intent" required aria-describedby="intent-hint">
+        <option value="I can lend this"
+                data-subject="Equipment loan offer"
+                data-needs-conditions="yes">I can lend this</option>
+        <option value="I might be able to — I need to check first"
+                data-subject="Possible loan"
+                data-needs-conditions="yes">I might be able to — I need to check first</option>
+        <option value="Not during your window, but ask me for a later one"
+                data-subject="Later availability"
+                data-needs-conditions="no">Not during your window, but ask me for a later one</option>
+        <option value="I do not have one, but I know who might"
+                data-subject="Lead"
+                data-needs-conditions="no">I do not have one, but I know who might</option>
+      </select>
+      <div class="hint" id="intent-hint"><p>A firm offer is not the only useful answer. A maybe, a &quot;not this semester, try me in the
+spring&quot;, or the name of a colleague who owns one are all worth having, and all take the
+same two minutes. Tell us which of those this is and we will treat it accordingly.</p></div>
+    </div>
 
     <div class="field">
       <label for="f-name">Name <span class="req" aria-hidden="true">*</span></label>
@@ -395,10 +412,12 @@ often work, and we will tell you quickly either way.</p></div>
     <div class="field">
       <label for="f-avail">Availability window <span class="opt">(optional)</span></label>
       <input id="f-avail" name="availability" type="text" aria-describedby="avail-hint">
-      <p class="hint" id="avail-hint">When could we pick it up, and any end date?</p>
+      <p class="hint" id="avail-hint">When could we pick it up, and any end date? If the answer is
+        "later", tell us when to ask.</p>
     </div>
 
-    <div class="field">
+    
+    <div class="field" id="conditions-field">
       <label for="f-cond">Loan conditions <span class="req" aria-hidden="true">*</span></label>
       <select id="f-cond" name="conditions" required>
         <option value="Can live in DRACO Lab">Can live in DRACO Lab</option>
@@ -407,10 +426,8 @@ often work, and we will tell you quickly either way.</p></div>
         <option value="Let us discuss">Let us discuss</option>
       </select>
     </div>
-
     <h3 class="form-subhead">The return side</h3>
-    <p class="hint">Both of these default to the quiet option. Skip them and nothing is published, and nothing is promised.</p>
-
+    <p class="hint">These default to the quiet option. Skip them and nothing is published, and nothing is promised.</p>
     <fieldset class="field">
       <legend>Acknowledgement</legend>
       <p class="hint" id="ack-hint">Opt-in. Change or withdraw it at any point before a manuscript goes out.</p>
@@ -465,7 +482,6 @@ often work, and we will tell you quickly either way.</p></div>
       <input id="f-credit" name="credit_as" type="text" aria-describedby="credit-hint">
       <p class="hint" id="credit-hint">Your wording — name, title, department. Left blank, we will ask you before anything is printed.</p>
     </div>
-
     <fieldset class="field">
       <legend>Anything here interest you? <span class="opt">(optional)</span></legend>
       <p class="hint" id="perks-hint">These are the parts of the return side you have to ask for. Ticking a box is not a commitment.</p>
@@ -488,6 +504,17 @@ often work, and we will tell you quickly either way.</p></div>
         <input type="checkbox" id="f-perk-letter" name="interested_in"
                value="A facilities or collaboration letter for a future proposal" aria-describedby="perks-hint">
         <label for="f-perk-letter">A facilities or collaboration letter for a future proposal</label>
+      </div>
+    </fieldset>
+    
+    <fieldset class="field">
+      <legend>Keeping in touch <span class="opt">(optional)</span></legend>
+      <div class="choice">
+        <input type="checkbox" id="f-followup" name="follow_up"
+               value="May contact me about later equipment needs" aria-describedby="followup-hint">
+        <label for="f-followup">You may come back to me about later needs, not just this one
+          <span class="choice-hint" id="followup-hint">Left unticked, we only reply about this message.</span>
+        </label>
       </div>
     </fieldset>
 
@@ -532,6 +559,6 @@ Florida · [contact email]. Questions about custody, insurance, or calibration a
 </footer>
 
 
-<script src="assets/js/site.js?v=ac86c999" defer></script>
+<script src="assets/js/site.js?v=ceb06665" defer></script>
 </body>
 </html>

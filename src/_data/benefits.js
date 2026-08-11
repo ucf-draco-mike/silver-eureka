@@ -8,13 +8,14 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { assertHiddenIdsExist, isHidden } from "../../lib/config.js";
 
 const DATA_PATH = path.join(process.cwd(), "content", "benefits.json");
 
 const raw = JSON.parse(fs.readFileSync(DATA_PATH, "utf8"));
-const benefits = raw.benefits;
+const allBenefits = raw.benefits;
 
-benefits.forEach((benefit, index) => {
+allBenefits.forEach((benefit, index) => {
   const where = `content/benefits.json: benefits[${index}]${benefit.id ? ` ("${benefit.id}")` : ""}`;
   for (const field of ["id", "title", "body"]) {
     if (!benefit[field]) throw new Error(`${where} is missing required field "${field}".`);
@@ -23,6 +24,10 @@ benefits.forEach((benefit, index) => {
     throw new Error(`${where} sets request: true but has no request_label for the form checkbox.`);
   }
 });
+
+/** A benefit hidden by config.json loses its card and its checkbox together. */
+assertHiddenIdsExist("benefits", allBenefits.map((benefit) => benefit.id));
+const benefits = allBenefits.filter((benefit) => !isHidden("benefits", benefit.id));
 
 export default {
   all: benefits,
