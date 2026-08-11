@@ -129,6 +129,38 @@ if (equipmentBoxes.length !== selectableCards.length + 1) {
   );
 }
 
+/* --- "What you get back" is a second card-backed group ---------------------- */
+
+/**
+ * Same contract as equipment, and the same silent failure: these checkboxes live in the
+ * benefits cards, outside <form>. A duplicate set inside the form would submit every
+ * choice twice, so there must be exactly one control per requestable benefit.
+ */
+const perkBoxes = allMatches(/<input\b[^>]*name="interested_in"[^>]*>/g).map((m) => m[0]);
+const perkValues = perkBoxes.map((b) => /value="([^"]*)"/.exec(b)?.[1]);
+const dupPerks = perkValues.filter((v, i) => perkValues.indexOf(v) !== i);
+if (dupPerks.length) {
+  fail(
+    `duplicate "interested_in" value(s): ${[...new Set(dupPerks)].join(", ")} — a benefit ` +
+      `offered both as a card and as a form control submits twice`,
+  );
+}
+for (const box of perkBoxes) {
+  const id = /id="([^"]*)"/.exec(box)?.[1];
+  if (!new RegExp(`form="${formId}"`).test(box)) {
+    fail(`benefit checkbox "${id}" is outside the form but has no form="${formId}" attribute`);
+  }
+}
+
+/** Every "Ask on the form" card must be tickable, and nothing else may be. */
+const askTags = (html.match(/class="tag tag-request"/g) || []).length;
+if (perkBoxes.length !== askTags) {
+  fail(
+    `${askTags} cards are labelled "Ask on the form" but ${perkBoxes.length} carry a checkbox ` +
+      `— a card that says to ask needs something to tick`,
+  );
+}
+
 /* --- headings -------------------------------------------------------------- */
 
 const headings = allMatches(/<h([1-6])\b/g).map((m) => Number(m[1]));

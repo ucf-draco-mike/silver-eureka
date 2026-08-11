@@ -171,10 +171,16 @@ what keeps it from being a mailing list.
 
 ### Changing what lenders are offered
 
-`content/benefits.json` drives both the "What you get back" cards and the checkboxes in
-the form, from one list — the page cannot advertise something the form has no way to
-accept. Set `request: true` and give a `request_label` to make a benefit something the
-lender ticks; the build fails if you set one without the other.
+`content/benefits.json` drives the "What you get back" cards. Set `request: true` and give
+a `request_label` to make a benefit something the lender can ask for; the build fails if
+you set one without the other.
+
+A requestable benefit renders as a selectable card, exactly like an instrument — the card
+*is* the checkbox. The rest render as static cards, because calibration and custody happen
+either way and acknowledgement has its own consent control; a tick box beside those would
+imply a choice that is not on offer. `check:html` asserts that the count of "Ask on the
+form" cards matches the count of checkboxes, so a card cannot tell someone to ask for
+something they have no way to request.
 
 **These are promises.** Bench time, a facilities letter, student seats, and reciprocal
 borrowing all cost real hours later. Remove any item you are not prepared to honor
@@ -271,13 +277,17 @@ docs/               Build output. Committed; served by Pages. Do not edit by han
 
 ## How it behaves
 
-- **Choosing equipment is clicking cards.** Each card is a `<label>` for its own
-  checkbox, so selection is native — click, tap, or focus and press Space. Any number can
-  be selected, and they all travel in one submission.
+- **Choosing is clicking cards** — both for instruments and for the "ask on the form"
+  benefits. Each selectable card is a `<label>` for its own checkbox, so selection is
+  native: click, tap, or focus and press Space. Any number can be selected, and they all
+  travel in one submission.
 - **Those checkboxes sit outside `<form>`**, above it on the page. They submit because
   each carries `form="offer-form"`, which makes it a member of a form it is not nested
   in. Remove that attribute and the selection silently stops being sent with nothing
   looking wrong, so `check:html` asserts it on every card.
+- **The form reports selections rather than repeating them.** Duplicating those
+  checkboxes inside the form would submit every choice twice, so the form shows a live
+  summary and `check:html` fails on a duplicate value in either group.
 - **Without JavaScript** the page is complete: cards select, `<details>` opens, and the
   form posts natively to Formspree, whose own thank-you page is the fallback
   confirmation. The script only upgrades the submit to `fetch`, keeps the visitor on the

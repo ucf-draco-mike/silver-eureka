@@ -8,7 +8,7 @@
 <meta name="color-scheme" content="light dark">
 <title>Instrument Loans — DRACO Lab Benchmarking Bench</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23161512'/%3E%3Cpath d='M6 21h4l3-9 3 14 3-11 2 6h5' fill='none' stroke='%23FFC904' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/css/site.css?v=1cf2a2eb">
+<link rel="stylesheet" href="assets/css/site.css?v=8d8b730a">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -346,76 +346,195 @@ calibration. If a detail would change your decision, ask — we can say more in 
   <div class="prose"><p>A loan should not be a favor you regret. The calibration is the headline of the return
 side, but it is not the whole of it. Items marked &quot;ask on the form&quot; happen only if you
 ask for them — they are offers, not obligations.</p></div>
+  <p class="prose pick-hint" id="want-hint">Select any of the &quot;ask on the form&quot; cards you would like. Ticking one is not a commitment, and the rest happen whether you ask or not.</p>
 
   <ul class="grid benefits">
     <li>
-      <article class="card benefit">
-        <h3>A fresh accredited calibration</h3>
-        <p class="tag tag-standard">Standard</p>
-        <p>Every instrument goes back with an ISO/IEC 17025, NIST-traceable calibration performed at project expense. The certificate travels with it, and so do the as-found and as-left data — the as-found record tells you whether the measurements you already took were inside tolerance.</p>
+      <article class="card benefit" id="benefit-calibration">
+        
+        <div class="card-face card-face-static">
+          <span class="tag tag-standard">Standard</span>
+          <h3 class="card-name">A fresh accredited calibration</h3>
+        </div>
+
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p>Every instrument goes back with an ISO/IEC 17025, NIST-traceable calibration performed at project expense. The certificate travels with it, and so do the as-found and as-left data — the as-found record tells you whether the measurements you already took were inside tolerance.</p>
+          </div>
+        </details>
       </article>
     </li>
     <li>
-      <article class="card benefit">
-        <h3>A condition and custody record</h3>
-        <p class="tag tag-standard">Standard</p>
-        <p>Serial numbers, photographs at handoff and at return, and a chain-of-custody log. It is the paperwork your department property manager asks for, prepared without you having to prepare it.</p>
+      <article class="card benefit" id="benefit-custody-record">
+        
+        <div class="card-face card-face-static">
+          <span class="tag tag-standard">Standard</span>
+          <h3 class="card-name">A condition and custody record</h3>
+        </div>
+
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p>Serial numbers, photographs at handoff and at return, and a chain-of-custody log. It is the paperwork your department property manager asks for, prepared without you having to prepare it.</p>
+          </div>
+        </details>
       </article>
     </li>
     <li>
-      <article class="card benefit">
-        <h3>A service check while it is here</h3>
-        <p class="tag tag-standard">Standard</p>
-        <p>Firmware brought current, probe and lead sets verified against the instrument, and a written note of anything worn or missing from the accessory kit. Small work, but it is work you would otherwise have to schedule.</p>
+      <article class="card benefit" id="benefit-service-check">
+        
+        <div class="card-face card-face-static">
+          <span class="tag tag-standard">Standard</span>
+          <h3 class="card-name">A service check while it is here</h3>
+        </div>
+
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p>Firmware brought current, probe and lead sets verified against the instrument, and a written note of anything worn or missing from the accessory kit. Small work, but it is work you would otherwise have to schedule.</p>
+          </div>
+        </details>
       </article>
     </li>
     <li>
-      <article class="card benefit">
-        <h3>Transport, custody, and a fixed return date</h3>
-        <p class="tag tag-standard">Standard</p>
-        <p>We collect the instrument and we bring it back. The loan runs under UCF property procedures from pickup to return, and the return date is agreed in writing before anything moves.</p>
+      <article class="card benefit" id="benefit-logistics">
+        
+        <div class="card-face card-face-static">
+          <span class="tag tag-standard">Standard</span>
+          <h3 class="card-name">Transport, custody, and a fixed return date</h3>
+        </div>
+
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p>We collect the instrument and we bring it back. The loan runs under UCF property procedures from pickup to return, and the return date is agreed in writing before anything moves.</p>
+          </div>
+        </details>
       </article>
     </li>
     <li>
-      <article class="card benefit">
-        <h3>First call when the direction reverses</h3>
-        <p class="tag tag-standard">Standard</p>
-        <p>Lenders go to the front of the queue for DRACO Lab instruments, bench space, and measurement help. We keep that ledger and we honor it.</p>
+      <article class="card benefit" id="benefit-reciprocity">
+        
+        <div class="card-face card-face-static">
+          <span class="tag tag-standard">Standard</span>
+          <h3 class="card-name">First call when the direction reverses</h3>
+        </div>
+
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p>Lenders go to the front of the queue for DRACO Lab instruments, bench space, and measurement help. We keep that ledger and we honor it.</p>
+          </div>
+        </details>
       </article>
     </li>
     <li>
-      <article class="card benefit">
-        <h3>Acknowledgement, if you want it</h3>
-        <p class="tag tag-optin">Opt-in</p>
-        <p>Named in the acknowledgements of resulting publications, listed on this page, both, or neither. The default is neither. You pick the wording, and you can withdraw it at any point before a manuscript goes out.</p>
+      <article class="card benefit" id="benefit-acknowledgement">
+        
+        <div class="card-face card-face-static">
+          <span class="tag tag-optin">Opt-in</span>
+          <h3 class="card-name">Acknowledgement, if you want it</h3>
+        </div>
+
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p>Named in the acknowledgements of resulting publications, listed on this page, both, or neither. The default is neither. You pick the wording, and you can withdraw it at any point before a manuscript goes out.</p>
+          </div>
+        </details>
       </article>
     </li>
     <li>
-      <article class="card benefit">
-        <h3>Time on the calibrated bench</h3>
-        <p class="tag tag-request">Ask on the form</p>
-        <p>Once the measurement chain is characterized we can put your board, module, or device on it and take a real measurement with you. The bench is expensive to assemble and it is being assembled anyway.</p>
+      <article class="card benefit" id="benefit-bench-time">
+        
+        <input class="card-check" type="checkbox" id="want-bench-time"
+               name="interested_in" value="A measurement session on the calibrated bench"
+               form="offer-form" aria-describedby="want-hint">
+        <label class="card-face" for="want-bench-time">
+          <span class="tag tag-request">Ask on the form</span>
+          <h3 class="card-name">Time on the calibrated bench</h3>
+          <span class="card-pick" aria-hidden="true">
+            <span class="card-pick-box"></span>
+            <span class="card-pick-text">Select</span>
+          </span>
+        </label>
+
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p>Once the measurement chain is characterized we can put your board, module, or device on it and take a real measurement with you. The bench is expensive to assemble and it is being assembled anyway.</p>
+          </div>
+        </details>
       </article>
     </li>
     <li>
-      <article class="card benefit">
-        <h3>The measurement stack, openly</h3>
-        <p class="tag tag-request">Ask on the form</p>
-        <p>The SCPI automation, the capture harness, and the written measurement protocol are released openly. Lenders get them first, with a walkthrough, rather than waiting for the repository to go public.</p>
+      <article class="card benefit" id="benefit-open-stack">
+        
+        <input class="card-check" type="checkbox" id="want-open-stack"
+               name="interested_in" value="The measurement scripts and protocol, with a walkthrough"
+               form="offer-form" aria-describedby="want-hint">
+        <label class="card-face" for="want-open-stack">
+          <span class="tag tag-request">Ask on the form</span>
+          <h3 class="card-name">The measurement stack, openly</h3>
+          <span class="card-pick" aria-hidden="true">
+            <span class="card-pick-box"></span>
+            <span class="card-pick-text">Select</span>
+          </span>
+        </label>
+
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p>The SCPI automation, the capture harness, and the written measurement protocol are released openly. Lenders get them first, with a walkthrough, rather than waiting for the repository to go public.</p>
+          </div>
+        </details>
       </article>
     </li>
     <li>
-      <article class="card benefit">
-        <h3>Training for one of your students</h3>
-        <p class="tag tag-request">Ask on the form</p>
-        <p>A student from your group is welcome in the setup and calibration sessions. Precision power measurement transfers badly from a manual, and there are few places on campus to learn it with instruments in front of you.</p>
+      <article class="card benefit" id="benefit-student-training">
+        
+        <input class="card-check" type="checkbox" id="want-student-training"
+               name="interested_in" value="A seat for one of my students in the setup and calibration sessions"
+               form="offer-form" aria-describedby="want-hint">
+        <label class="card-face" for="want-student-training">
+          <span class="tag tag-request">Ask on the form</span>
+          <h3 class="card-name">Training for one of your students</h3>
+          <span class="card-pick" aria-hidden="true">
+            <span class="card-pick-box"></span>
+            <span class="card-pick-text">Select</span>
+          </span>
+        </label>
+
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p>A student from your group is welcome in the setup and calibration sessions. Precision power measurement transfers badly from a manual, and there are few places on campus to learn it with instruments in front of you.</p>
+          </div>
+        </details>
       </article>
     </li>
     <li>
-      <article class="card benefit">
-        <h3>A letter for your next proposal</h3>
-        <p class="tag tag-request">Ask on the form</p>
-        <p>We will write a facilities, collaboration, or shared-instrumentation letter for your next submission, and we will write it properly rather than from a template. This is a standing offer, not a one-time trade.</p>
+      <article class="card benefit" id="benefit-letter">
+        
+        <input class="card-check" type="checkbox" id="want-letter"
+               name="interested_in" value="A facilities or collaboration letter for a future proposal"
+               form="offer-form" aria-describedby="want-hint">
+        <label class="card-face" for="want-letter">
+          <span class="tag tag-request">Ask on the form</span>
+          <h3 class="card-name">A letter for your next proposal</h3>
+          <span class="card-pick" aria-hidden="true">
+            <span class="card-pick-box"></span>
+            <span class="card-pick-text">Select</span>
+          </span>
+        </label>
+
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p>We will write a facilities, collaboration, or shared-instrumentation letter for your next submission, and we will write it properly rather than from a template. This is a standing offer, not a one-time trade.</p>
+          </div>
+        </details>
       </article>
     </li>
   </ul>
@@ -571,30 +690,14 @@ spring&quot;, or the name of a colleague could help us.</p></div>
       <input id="f-credit" name="credit_as" type="text" aria-describedby="credit-hint">
       <p class="hint" id="credit-hint">Your wording — name, title, department. Left blank, we will ask you before anything is printed.</p>
     </div>
-    <fieldset class="field">
-      <legend>Anything here interest you? <span class="opt">(optional)</span></legend>
-      <p class="hint" id="perks-hint">These are the parts of the return side you have to ask for. Ticking a box is not a commitment.</p>
-      <div class="choice">
-        <input type="checkbox" id="f-perk-bench-time" name="interested_in"
-               value="A measurement session on the calibrated bench" aria-describedby="perks-hint">
-        <label for="f-perk-bench-time">A measurement session on the calibrated bench</label>
-      </div>
-      <div class="choice">
-        <input type="checkbox" id="f-perk-open-stack" name="interested_in"
-               value="The measurement scripts and protocol, with a walkthrough" aria-describedby="perks-hint">
-        <label for="f-perk-open-stack">The measurement scripts and protocol, with a walkthrough</label>
-      </div>
-      <div class="choice">
-        <input type="checkbox" id="f-perk-student-training" name="interested_in"
-               value="A seat for one of my students in the setup and calibration sessions" aria-describedby="perks-hint">
-        <label for="f-perk-student-training">A seat for one of my students in the setup and calibration sessions</label>
-      </div>
-      <div class="choice">
-        <input type="checkbox" id="f-perk-letter" name="interested_in"
-               value="A facilities or collaboration letter for a future proposal" aria-describedby="perks-hint">
-        <label for="f-perk-letter">A facilities or collaboration letter for a future proposal</label>
-      </div>
-    </fieldset>
+
+    
+    <div class="field" id="perks-field">
+      <p class="field-label">Anything here interest you? <span class="opt">(optional)</span></p>
+      <p class="selection-summary" id="perks-summary" role="status">
+        <a href="#benefits-h">Nothing selected</a> — the rest of the return side happens anyway.
+      </p>
+    </div>
     
     <fieldset class="field">
       <legend>Keeping in touch <span class="opt">(optional)</span></legend>
@@ -645,6 +748,6 @@ Florida · <a href="mailto:mike.borowczak@ucf.edu">mike.borowczak@ucf.edu</a>. Q
 </footer>
 
 
-<script src="assets/js/site.js?v=53d5ae31" defer></script>
+<script src="assets/js/site.js?v=41268f1e" defer></script>
 </body>
 </html>

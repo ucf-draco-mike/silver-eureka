@@ -113,18 +113,18 @@
     </div>
     {%- endif %}
 
+    {#
+      Chosen by ticking cards in "What you get back" — those checkboxes are members of
+      this form via form="offer-form". Repeating them here would submit every choice
+      twice, so this reports the selection instead.
+    #}
     {%- if site.sections.requestableBenefits and benefits.requestable.length %}
-    <fieldset class="field">
-      <legend>Anything here interest you? <span class="opt">(optional)</span></legend>
-      <p class="hint" id="perks-hint">These are the parts of the return side you have to ask for. Ticking a box is not a commitment.</p>
-      {%- for option in benefits.requestable %}
-      <div class="choice">
-        <input type="checkbox" id="f-perk-{{ option.value }}" name="interested_in"
-               value="{{ option.label }}" aria-describedby="perks-hint">
-        <label for="f-perk-{{ option.value }}">{{ option.label }}</label>
-      </div>
-      {%- endfor %}
-    </fieldset>
+    <div class="field" id="perks-field">
+      <p class="field-label">Anything here interest you? <span class="opt">(optional)</span></p>
+      <p class="selection-summary" id="perks-summary" role="status">
+        <a href="#benefits-h">Nothing selected</a> — the rest of the return side happens anyway.
+      </p>
+    </div>
     {%- endif %}
 
     {%- if site.sections.interest %}
