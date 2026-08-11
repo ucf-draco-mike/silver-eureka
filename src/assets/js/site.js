@@ -16,15 +16,21 @@
   var errorPanel = document.getElementById("form-error");
   var submitButton = form.querySelector(".submit");
 
-  // Equipment lives in the cards above the form, joined to it by form="offer-form".
+  // Both card groups live above the form, joined to it by form="offer-form".
   var equipmentBoxes = document.querySelectorAll('input[name="equipment"]');
+  var perkBoxes = document.querySelectorAll('input[name="interested_in"]');
   var summary = document.getElementById("selection-summary");
+  var perksSummary = document.getElementById("perks-summary");
   var equipmentError = document.getElementById("equipment-error");
 
-  function selectedEquipment() {
+  function checkedValues(boxes) {
     return Array.prototype.filter
-      .call(equipmentBoxes, function (box) { return box.checked; })
+      .call(boxes, function (box) { return box.checked; })
       .map(function (box) { return box.value; });
+  }
+
+  function selectedEquipment() {
+    return checkedValues(equipmentBoxes);
   }
 
   /* --- Subject line ------------------------------------------------------- */
@@ -74,6 +80,27 @@
     });
   });
   syncSummary();
+
+  /* --- "What you get back" selections -------------------------------------- */
+
+  function syncPerks() {
+    if (!perksSummary) return;
+    var picks = checkedValues(perkBoxes);
+    perksSummary.classList.toggle("has-picks", picks.length > 0);
+    if (picks.length === 0) {
+      perksSummary.innerHTML =
+        '<a href="#benefits-h">Nothing selected</a> — the rest of the return side happens anyway.';
+      return;
+    }
+    // textContent, not innerHTML: these strings come from the benefits data.
+    perksSummary.textContent =
+      (picks.length === 1 ? "Asking about: " : picks.length + " selected: ") + picks.join(", ");
+  }
+
+  Array.prototype.forEach.call(perkBoxes, function (box) {
+    box.addEventListener("change", syncPerks);
+  });
+  syncPerks();
 
   /* --- Loan conditions only matter for an actual loan --------------------- */
 

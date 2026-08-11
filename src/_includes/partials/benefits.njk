@@ -3,19 +3,50 @@
   <h2 id="benefits-h">{{ copy.benefitsHeading }}</h2>
   <div class="prose">{{ copy.benefitsIntroHtml | safe }}</div>
 
+  {%- if site.sections.requestableBenefits and benefits.requestable.length %}
+  <p class="prose pick-hint" id="want-hint">{{ copy.benefitsPickHint }}</p>
+  {%- endif %}
+
   <ul class="grid benefits">
     {%- for benefit in benefits.all %}
+    {%- set selectable = benefit.request and site.sections.requestableBenefits %}
     <li>
-      <article class="card benefit">
-        <h3>{{ benefit.title }}</h3>
-        {%- if benefit.request %}
-        <p class="tag tag-request">Ask on the form</p>
-        {%- elif benefit.optin %}
-        <p class="tag tag-optin">Opt-in</p>
+      <article class="card benefit" id="benefit-{{ benefit.id }}">
+        {#
+          Only the ask-for-it benefits are selectable. Calibration and custody happen
+          either way, and acknowledgement has its own consent control in the form —
+          a tick box beside those would imply a choice that is not being offered.
+          Like the equipment cards, these submit via form="offer-form".
+        #}
+        {%- if selectable %}
+        <input class="card-check" type="checkbox" id="want-{{ benefit.id }}"
+               name="interested_in" value="{{ benefit.request_label }}"
+               form="offer-form" aria-describedby="want-hint">
+        <label class="card-face" for="want-{{ benefit.id }}">
+          <span class="tag tag-request">Ask on the form</span>
+          <h3 class="card-name">{{ benefit.title }}</h3>
+          <span class="card-pick" aria-hidden="true">
+            <span class="card-pick-box"></span>
+            <span class="card-pick-text">Select</span>
+          </span>
+        </label>
         {%- else %}
-        <p class="tag tag-standard">Standard</p>
+        <div class="card-face card-face-static">
+          {%- if benefit.optin %}
+          <span class="tag tag-optin">Opt-in</span>
+          {%- else %}
+          <span class="tag tag-standard">Standard</span>
+          {%- endif %}
+          <h3 class="card-name">{{ benefit.title }}</h3>
+        </div>
         {%- endif %}
-        <p>{{ benefit.body }}</p>
+
+        <details class="card-more">
+          <summary>Details</summary>
+          <div class="card-more-body">
+            <p>{{ benefit.body }}</p>
+          </div>
+        </details>
       </article>
     </li>
     {%- endfor %}

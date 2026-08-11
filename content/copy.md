@@ -94,6 +94,11 @@ A loan should not be a favor you regret. The calibration is the headline of the 
 side, but it is not the whole of it. Items marked "ask on the form" happen only if you
 ask for them — they are offers, not obligations.
 
+## Benefits pick hint
+
+Select any of the "ask on the form" cards you would like. Ticking one is not a
+commitment, and the rest happen whether you ask or not.
+
 ## Acknowledgement heading
 
 Acknowledgement, on your terms
