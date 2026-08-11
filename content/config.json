@@ -14,7 +14,7 @@
     "_readme": "Fill these before launch. They are substituted into the copy and the equipment data at build time, so content/ keeps its generic wording.",
 
     "formId": "meajgpnp",
-    "loanWindow": "[Oct 2026 – Jan 2027]",
+    "loanWindow": "Oct 2026 – Jan 2027",
     "location": "secure DRACO Lab space (HEC)",
     "contactEmail": "mike.borowczak@ucf.edu",
     "githubUser": "ucf-draco-mike",
