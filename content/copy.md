@@ -43,8 +43,8 @@ What we need
 
 You'll find the equipment we're looking for here. Please note that we can not say what
 the instrument will be doing on the bench: the engagement is under an NDA and the 
-measurement design sits inside it. Your equipment will not be modified beyond standarized
-calibration. If a detail would change your decision, ask —  we can say more in a room than on a public page.
+measurement design sits inside it. Your equipment will not be modified beyond standardized
+calibration. If a detail would change your decision, ask — we can say more in a room than on a public page.
 
 ## Equipment pick hint
 
@@ -72,7 +72,7 @@ might work, and we will tell you quickly either way.
 
 ## Form intent note
 
-This is not a contract -- we're just trying to see who might be able to help
+This is not a contract -- we're just trying to see who might be able to help.
 Also, if you're not sure, a maybe, a "not this semester, try me in the
 spring", or the name of a colleague could help us.
 
