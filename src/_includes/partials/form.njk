@@ -1,0 +1,125 @@
+<section class="section" aria-labelledby="form-h">
+  <h2 id="form-h">{{ copy.formHeading }}</h2>
+  <div class="prose">{{ copy.formIntroHtml | safe }}</div>
+
+  {#
+    Formspree endpoint. {FORM_ID} comes from src/_data/site.js — see README §Setup.
+    The form posts natively when JavaScript is unavailable; site.js upgrades it to a
+    fetch() submission that keeps the visitor on the page.
+  #}
+  <form id="offer-form" action="{{ site.formAction }}" method="POST">
+    <p class="required-note" id="required-note">Fields marked <span class="req">*</span> are required.</p>
+
+    <div class="field">
+      <label for="f-name">Name <span class="req" aria-hidden="true">*</span></label>
+      <input id="f-name" name="name" type="text" required autocomplete="name">
+    </div>
+
+    <div class="field">
+      <label for="f-email">Email <span class="req" aria-hidden="true">*</span></label>
+      <input id="f-email" name="email" type="email" required autocomplete="email">
+    </div>
+
+    <div class="field">
+      <label for="f-dept">Department / institution <span class="req" aria-hidden="true">*</span></label>
+      <input id="f-dept" name="department" type="text" required autocomplete="organization">
+    </div>
+
+    <div class="field">
+      <label for="f-equip">Equipment offered <span class="req" aria-hidden="true">*</span></label>
+      <select id="f-equip" name="equipment" required>
+        {%- for option in equipment.options %}
+        <option value="{{ option }}">{{ option }}</option>
+        {%- endfor %}
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="f-model">Make / model / rough vintage <span class="opt">(optional)</span></label>
+      <input id="f-model" name="make_model" type="text">
+    </div>
+
+    <div class="field">
+      <label for="f-avail">Availability window <span class="opt">(optional)</span></label>
+      <input id="f-avail" name="availability" type="text" aria-describedby="avail-hint">
+      <p class="hint" id="avail-hint">When could we pick it up, and any end date?</p>
+    </div>
+
+    <div class="field">
+      <label for="f-cond">Loan conditions <span class="req" aria-hidden="true">*</span></label>
+      <select id="f-cond" name="conditions" required>
+        {%- for condition in site.loanConditions %}
+        <option value="{{ condition }}">{{ condition }}</option>
+        {%- endfor %}
+      </select>
+    </div>
+
+    <h3 class="form-subhead">The return side</h3>
+    <p class="hint">Both of these default to the quiet option. Skip them and nothing is published, and nothing is promised.</p>
+
+    <fieldset class="field">
+      <legend>Acknowledgement</legend>
+      <p class="hint" id="ack-hint">Opt-in. Change or withdraw it at any point before a manuscript goes out.</p>
+      {%- for option in site.acknowledgementOptions %}
+      <div class="choice">
+        <input type="radio" id="f-ack-{{ option.value }}" name="acknowledgement"
+               value="{{ option.label }}" data-grants-public="{{ 'yes' if option.grantsPublic else 'no' }}"
+               data-wants-name="{{ 'yes' if option.value in ['publications', 'both'] else 'no' }}"
+               aria-describedby="ack-hint"
+               {% if loop.first %}checked{% endif %}>
+        <label for="f-ack-{{ option.value }}">
+          {{ option.label }}
+          <span class="choice-hint">{{ option.hint }}</span>
+        </label>
+      </div>
+      {%- endfor %}
+    </fieldset>
+
+    <div class="field" id="credit-field">
+      <label for="f-credit">How you want to be credited <span class="opt">(optional)</span></label>
+      <input id="f-credit" name="credit_as" type="text" aria-describedby="credit-hint">
+      <p class="hint" id="credit-hint">Your wording — name, title, department. Left blank, we will ask you before anything is printed.</p>
+    </div>
+
+    <fieldset class="field">
+      <legend>Anything here interest you? <span class="opt">(optional)</span></legend>
+      <p class="hint" id="perks-hint">These are the parts of the return side you have to ask for. Ticking a box is not a commitment.</p>
+      {%- for option in benefits.requestable %}
+      <div class="choice">
+        <input type="checkbox" id="f-perk-{{ option.value }}" name="interested_in"
+               value="{{ option.label }}" aria-describedby="perks-hint">
+        <label for="f-perk-{{ option.value }}">{{ option.label }}</label>
+      </div>
+      {%- endfor %}
+    </fieldset>
+
+    <div class="field">
+      <label for="f-notes">Notes <span class="opt">(optional)</span></label>
+      <textarea id="f-notes" name="notes" rows="4"></textarea>
+    </div>
+
+    <input type="hidden" name="_subject" id="f-subject" value="Equipment loan offer">
+
+    {# Honeypot: off-screen rather than display:none, so bots that skip hidden fields still fill it. #}
+    <div class="honeypot" aria-hidden="true">
+      <label for="f-gotcha">Leave this field empty</label>
+      <input id="f-gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+    </div>
+
+    <button class="submit" type="submit">Send offer</button>
+  </form>
+
+  {# Success moves focus here, which announces the panel; the error stays put and is
+     announced by role="alert" so the visitor is not thrown out of the form. #}
+  <div class="panel panel-ok" id="form-success" hidden tabindex="-1">
+    <h3>Offer received</h3>
+    <p>{{ copy.successMessage }}</p>
+  </div>
+
+  <div class="panel panel-err" id="form-error" hidden role="alert">
+    <p>{{ copy.errorMessage }}</p>
+  </div>
+
+  {# Announces the preselection made by an "Offer this" link. #}
+  <p class="visually-hidden" id="offer-live" aria-live="polite"></p>
+</section>

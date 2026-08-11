@@ -1,0 +1,41 @@
+<section class="section" aria-labelledby="equip-h">
+  <h2 id="equip-h">{{ copy.equipmentHeading }}</h2>
+
+  <div class="prose note-scope">{{ copy.equipmentNoteHtml | safe }}</div>
+
+  {%- if equipment.stats.covered > 0 %}
+  <p class="progress" role="status">
+    {{ equipment.stats.covered }} of {{ equipment.stats.total }}
+    {{ equipment.stats.total | pluralize("instrument") }} spoken for.
+    {{ equipment.stats.needed }} still {{ equipment.stats.needed | pluralize("needs", "need") }} a lender.
+  </p>
+  {%- endif %}
+
+  {%- for group in equipment.groups %}
+  <h3 class="prio-label" id="prio-{{ group.priority }}">{{ copy.priorityLabels[group.priority] }}</h3>
+  <ul class="grid" aria-labelledby="prio-{{ group.priority }}">
+    {%- for item in group.items %}
+    <li>
+      <article class="card{% if item.isSecured %} is-secured{% endif %}" id="item-{{ item.id }}">
+        <p class="badge {{ item.status }}">{{ item.status }}</p>
+        <h4>{{ item.name }}</h4>
+        <p class="meta model">{{ item.examples }}</p>
+        <p class="meta">Qty {{ item.qty }} · needed ~{{ item.weeks_needed }} weeks</p>
+        {%- if item.alternatives %}
+        <p><strong>Close counts:</strong> {{ item.alternatives }}</p>
+        {%- endif %}
+        {%- if item.notes %}
+        <p>{{ item.notes }}</p>
+        {%- endif %}
+        {%- if not item.isSecured %}
+        <a class="offer-btn" href="#f-equip" data-offer="{{ item.name }}">
+          Offer this<span aria-hidden="true"> →</span>
+          <span class="visually-hidden">: {{ item.name }}</span>
+        </a>
+        {%- endif %}
+      </article>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- endfor %}
+</section>

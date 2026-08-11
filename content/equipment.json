@@ -1,0 +1,155 @@
+{
+  "meta": {
+    "loan_window": "[Oct 2026 – Jan 2027] — approximately 10 weeks",
+    "location": "DRACO Lab, University of Central Florida [building/room]",
+    "contact_email": "[contact email]",
+    "status_values": ["needed", "offered", "secured"],
+    "note": "Edit 'status' as offers arrive and commit — the site re-renders from this data. Do not add client names or dollar figures anywhere in this file.",
+    "purpose_rule": "NEVER describe what an instrument will be used for. 'notes' and 'alternatives' are for what makes a unit suitable and how to hand it over — specs, accessories, compliance limits, remote-control needs. No roles ('reference', 'baseline', 'comparator', 'device under test'), no signal paths, no methodology. Read together, per-item purposes reconstruct the measurement design and narrow down what is being benchmarked, which is exactly what the NDA covers. `npm run check:purpose` enforces this."
+  },
+  "items": [
+    {
+      "id": "power-analyzer",
+      "name": "DC power analyzer / precision SMU",
+      "examples": "Keysight N6705C, B2902B, or equivalent precision source/measure with integrated energy logging",
+      "qty": 1,
+      "priority": "critical",
+      "weeks_needed": 10,
+      "alternatives": "Any bench power analyzer or SMU capable of precision rail sourcing/measurement with data logging",
+      "notes": "Remote control over LAN or USB is required; a front-panel-only unit will not work here. Send the interface cable if it is not a standard one.",
+      "status": "needed"
+    },
+    {
+      "id": "daq",
+      "name": "High-rate multichannel DAQ",
+      "examples": "NI USB-6363 or other X-series; any DAQ with 4+ differential channels at 100 kS/s per channel or better",
+      "qty": 1,
+      "priority": "critical",
+      "weeks_needed": 10,
+      "alternatives": "Simultaneous-sampling units preferred; at least one hardware-timestamped digital input line required",
+      "notes": "The original terminal block or connector kit is worth including if you still have it. Third-party breakouts are rarely a clean fit.",
+      "status": "needed"
+    },
+    {
+      "id": "dmm",
+      "name": "Bench reference DMM (6.5-digit or better)",
+      "examples": "Keysight 34465A/34470A, Fluke 8846A, Keithley DMM6500",
+      "qty": 1,
+      "priority": "critical",
+      "weeks_needed": 10,
+      "alternatives": "Any 6.5-digit bench meter; a current calibration certificate is ideal, and we can calibrate if there is not one",
+      "notes": "If it is already in calibration, send the certificate along with it. If it is not, ours will be the fresh one.",
+      "status": "needed"
+    },
+    {
+      "id": "scope",
+      "name": "Oscilloscope, 4-channel, 200 MHz+",
+      "examples": "Keysight InfiniiVision, Tektronix MSO/DSO series, Rigol MSO5000-class",
+      "qty": 1,
+      "priority": "critical",
+      "weeks_needed": 8,
+      "alternatives": "MSO preferred; SCPI or USB remote control strongly preferred",
+      "notes": "Probes and the original compensation kit are welcome alongside the instrument. Remote control matters more to us than bandwidth headroom.",
+      "status": "needed"
+    },
+    {
+      "id": "current-probe",
+      "name": "Current probe + amplifier",
+      "examples": "Tektronix TCP0030A with TCPA amplifier, or Hall/clamp probe with bench amplifier",
+      "qty": 1,
+      "priority": "critical",
+      "weeks_needed": 5,
+      "alternatives": "Any calibrated DC-capable current probe covering 0–15 A",
+      "notes": "The matching amplifier needs to travel with the probe head, along with any degauss or zeroing fixture.",
+      "status": "needed"
+    },
+    {
+      "id": "ir-camera",
+      "name": "Thermal / IR camera",
+      "examples": "Teledyne FLIR A- or E-series, Fluke Ti-series",
+      "qty": 1,
+      "priority": "high",
+      "weeks_needed": 5,
+      "alternatives": "Most research-grade thermal cameras work",
+      "notes": "Compliance constraint: the manufacturer must not be Hikvision or Dahua, or a rebrand of either (HikMicro included). Section 889 applies, and we verify by manufacturer rather than by label.",
+      "status": "needed"
+    },
+    {
+      "id": "workstation",
+      "name": "Workstation with PCIe Gen4 x16 slot",
+      "examples": "Dell Precision or HPE Z-class tower, 750 W+ PSU",
+      "qty": 1,
+      "priority": "high",
+      "weeks_needed": 12,
+      "alternatives": "Any recent tower we can hold at a fixed BIOS and software configuration for the duration",
+      "notes": "We will not reimage or repartition it, and we change nothing you have installed. Tell us about any licences tied to the machine.",
+      "status": "needed"
+    },
+    {
+      "id": "gpu-time",
+      "name": "Datacenter GPU access (H100/A100)",
+      "examples": "Node time on a campus cluster or lab server — approximately 2–3 weeks intermittent use",
+      "qty": 1,
+      "priority": "high",
+      "weeks_needed": 3,
+      "alternatives": "A100 acceptable; a local physical card is preferred over a cloud allocation",
+      "notes": "Scheduled intermittent blocks rather than a continuous reservation. Physical access to the card is worth more to us than a larger allocation.",
+      "status": "needed"
+    },
+    {
+      "id": "e-load",
+      "name": "Precision electronic load or resistor bank",
+      "examples": "Keysight/BK bench e-load, or a precision power resistor set",
+      "qty": 1,
+      "priority": "high",
+      "weeks_needed": 6,
+      "alternatives": "Anything that can hold a stable, repeatable setpoint",
+      "notes": "Front-panel-only control is acceptable for this one. A resistor set needs its published tolerances.",
+      "status": "needed"
+    },
+    {
+      "id": "tc-logger",
+      "name": "Thermocouple logger / TC module",
+      "examples": "Keysight DAQ970A with TC card, Omega handheld loggers, any multi-channel TC readout",
+      "qty": 1,
+      "priority": "nice",
+      "weeks_needed": 8,
+      "alternatives": "Two channels minimum",
+      "notes": "Include the thermocouples you normally pair with it if they are not captive.",
+      "status": "needed"
+    },
+    {
+      "id": "interposer",
+      "name": "PCIe riser/interposer with power breakout",
+      "examples": "Adexelec or similar PCIe extender exposing slot 12 V / 3.3 V rails",
+      "qty": 1,
+      "priority": "nice",
+      "weeks_needed": 10,
+      "alternatives": "An older Gen3 unit is still useful to us",
+      "notes": "New units carry a long lead time, so even a short loan helps.",
+      "status": "needed"
+    },
+    {
+      "id": "jetson",
+      "name": "NVIDIA Jetson Orin dev kit",
+      "examples": "Orin AGX / NX dev kits",
+      "qty": 1,
+      "priority": "nice",
+      "weeks_needed": 4,
+      "alternatives": "Xavier-class acceptable",
+      "notes": "The original power supply and carrier board are more useful to us than a bare module.",
+      "status": "needed"
+    },
+    {
+      "id": "fpga",
+      "name": "FPGA development board",
+      "examples": "AMD/Xilinx VCU/ZCU-class or Intel/Altera dev boards",
+      "qty": 1,
+      "priority": "nice",
+      "weeks_needed": 4,
+      "alternatives": "Board class is negotiable — talk to us",
+      "notes": "Include the programming cable if it is not integrated, and any node-locked licence details we would need.",
+      "status": "needed"
+    }
+  ]
+}

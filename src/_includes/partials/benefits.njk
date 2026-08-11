@@ -1,0 +1,50 @@
+<section class="section" aria-labelledby="benefits-h">
+  <h2 id="benefits-h">{{ copy.benefitsHeading }}</h2>
+  <div class="prose">{{ copy.benefitsIntroHtml | safe }}</div>
+
+  <ul class="grid benefits">
+    {%- for benefit in benefits.all %}
+    <li>
+      <article class="card benefit">
+        <h3>{{ benefit.title }}</h3>
+        {%- if benefit.request %}
+        <p class="tag tag-request">Ask on the form</p>
+        {%- elif benefit.optin %}
+        <p class="tag tag-optin">Opt-in</p>
+        {%- else %}
+        <p class="tag tag-standard">Standard</p>
+        {%- endif %}
+        <p>{{ benefit.body }}</p>
+      </article>
+    </li>
+    {%- endfor %}
+  </ul>
+
+  <div class="intro intro-ack" id="acknowledgement">
+    <h3>{{ copy.acknowledgementHeading }}</h3>
+    {{ copy.acknowledgementNoteHtml | safe }}
+  </div>
+</section>
+
+<section class="section" aria-labelledby="lenders-h">
+  <h2 id="lenders-h">{{ copy.lendersHeading }}</h2>
+  {%- if lenders.hasAny %}
+  <ul class="grid lenders">
+    {%- for lender in lenders.list %}
+    <li>
+      <article class="card lender">
+        <h3>{{ lender.credit_as }}</h3>
+        {%- if lender.affiliation %}
+        <p class="meta">{{ lender.affiliation }}</p>
+        {%- endif %}
+        {%- if lender.contribution %}
+        <p>{{ lender.contribution }}</p>
+        {%- endif %}
+      </article>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- else %}
+  <p class="empty">{{ copy.lendersEmpty }}</p>
+  {%- endif %}
+</section>

@@ -1,0 +1,16 @@
+<section class="section" aria-labelledby="intro-h">
+  <h2 id="intro-h" class="visually-hidden">The deal</h2>
+  <div class="intro">
+    {{ copy.introHtml | safe }}
+  </div>
+
+  <h3 class="visually-hidden" id="steps-h">How it works</h3>
+  <ol class="steps" aria-labelledby="steps-h">
+    {%- for step in copy.steps %}
+    <li class="step">
+      <b><span class="step-n" aria-hidden="true">{{ step.n }}</span> {{ step.title }}</b>
+      {{ step.body }}
+    </li>
+    {%- endfor %}
+  </ol>
+</section>

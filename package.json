@@ -1,0 +1,24 @@
+{
+  "name": "equipment-loans",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DRACO Lab instrument-loan site: what we need to borrow, and what lenders get back.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "check:confidential": "node scripts/check-confidential.js",
+    "check:purpose": "node scripts/check-purpose.js",
+    "check:html": "node scripts/check-html.js",
+    "check:build": "node scripts/check-build-current.js",
+    "check": "npm run build && npm run check:html && npm run check:purpose && npm run check:confidential && npm run check:build"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "markdown-it": "^15.0.0"
+  }
+}

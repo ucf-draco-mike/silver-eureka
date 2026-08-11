@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "note": "Public acknowledgement wall. ADD A LENDER HERE ONLY IF THEY OPTED IN TO PUBLIC LISTING on the offer form (acknowledgement = 'public' or 'both'). 'credit_as' is their own wording where they supplied it — use it verbatim. Remove an entry immediately on request; there is no approval step and no archive. Do not add client names or dollar figures anywhere in this file.",
+    "fields": {
+      "credit_as": "displayed name, exactly as the lender wrote it",
+      "affiliation": "department or institution, optional",
+      "contribution": "what they lent, in plain words, optional"
+    }
+  },
+  "lenders": []
+}
