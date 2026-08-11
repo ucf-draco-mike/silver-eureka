@@ -13,11 +13,11 @@
   "owner": {
     "_readme": "Fill these before launch. They are substituted into the copy and the equipment data at build time, so content/ keeps its generic wording.",
 
-    "formId": "{FORM_ID}",
+    "formId": "meajgpnp",
     "loanWindow": "[Oct 2026 – Jan 2027]",
-    "location": "[building/room]",
-    "contactEmail": "[contact email]",
-    "githubUser": "{username}",
+    "location": "HEC - ITAR Controlled Room",
+    "contactEmail": "mike.borowczak@ucf.edu",
+    "githubUser": "ucf-draco-mike",
     "repoName": "equipment-loans"
   },
 
