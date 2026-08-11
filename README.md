@@ -24,27 +24,57 @@ Node 18 or newer.
 
 ## Setup, once
 
-### 1. Fill in the placeholders
+### 1. Fill in `content/config.json`
 
-Everything the owner fills lives in **`src/_data/site.js`**. Nothing else needs editing.
+One file controls the launch settings **and** what the public page shows.
 
-| Setting | What it is |
-|---|---|
-| `formId` | The 8-character Formspree form ID |
-| `loanWindow` | Loan window as it should read in prose |
-| `location` | Building and room the instruments live in |
-| `contactEmail` | Contact address — becomes a mailto link in the footer and the error message |
-| `githubUser`, `repoName` | Used only to build the canonical Pages URL |
+```jsonc
+{
+  "owner": {
+    "formId": "{FORM_ID}",                    // 8-character Formspree ID
+    "loanWindow": "[Oct 2026 – Jan 2027]",    // as it should read in prose
+    "location": "[building/room]",            // where the instruments live
+    "contactEmail": "[contact email]",        // mailto link in the footer and error message
+    "githubUser": "{username}",               // canonical Pages URL only
+    "repoName": "equipment-loans"
+  },
+  "page":     { "allowSearchEngines": false },
+  "sections": { "howItWorks": true, "scopeNote": true, "progressCount": true,
+                "benefits": true, "lendersWall": true, "acknowledgement": true,
+                "interest": true },
+  "hidden":   { "equipment": [], "benefits": [] }
+}
+```
 
-The bracketed defaults (`[building/room]`, `{FORM_ID}`) are placeholders. They are
-substituted into the copy and the equipment data at build time, so `content/` keeps the
-generic wording and you never hunt for them across files.
+The bracketed defaults are placeholders, substituted into the copy and equipment data at
+build time — `content/` keeps its generic wording and you never hunt for them.
+
+**`sections`** turns a part of the page off entirely. Form controls travel with the
+section that explains them: switch off `benefits` and the request checkboxes go with it;
+switch off `acknowledgement` and the page stops asking and the lenders wall goes too.
+Anything you leave out of the file stays on.
+
+**`hidden`** withholds individual records without deleting them:
+
+```jsonc
+"hidden": { "equipment": ["interposer", "gpu-time"], "benefits": [] }
+```
+
+A hidden instrument disappears from the cards, from the form dropdown, and from the
+progress count — ask for it privately by email instead. This is the lever for an item
+that is too revealing to list: the notes never state a purpose, but a distinctive part
+can narrow the design down on its own.
+
+Every setting is validated at build time. An unknown section name, a non-boolean toggle,
+or an id in `hidden` that matches no record all fail the build, listing the valid values.
+That last one matters most — a typo in `hidden` would otherwise publish something you
+believed you had withheld, and nothing on the page would look wrong.
 
 ### 2. Create the Formspree form
 
 1. Free account at [formspree.io](https://formspree.io) → **New form** → name it
    "Equipment loans".
-2. Copy the form ID into `formId` in `src/_data/site.js`.
+2. Copy the form ID into `owner.formId` in `content/config.json`.
 3. In form settings, confirm the notification email. Leave reCAPTCHA at its default —
    AJAX submissions work on the free tier, and the honeypot handles casual spam.
 4. Free tier allows 50 submissions per month, which is ample here.
@@ -101,6 +131,31 @@ Add a lender to `content/lenders.json` **only** for the last answer, using their
 `credit_as` wording verbatim. Remove an entry the moment they ask — no approval step, no
 archive. The build refuses an entry with no `credit_as`, which is the mechanical half of
 "we use their words, not ours".
+
+### Reading the inbox
+
+The form's first question asks what the sender is telling you, and the answer prefixes
+the notification subject so the inbox sorts itself:
+
+| Answer | Subject prefix | Loan conditions asked? |
+|---|---|---|
+| I can lend this | `Equipment loan offer:` | Yes |
+| I might be able to — I need to check first | `Possible loan:` | Yes |
+| Not during your window, but ask me for a later one | `Later availability:` | No |
+| I do not have one, but I know who might | `Lead:` | No |
+
+The last two hide the loan-conditions question, since it has nothing to answer. Without
+JavaScript the question stays visible and "Let us discuss" covers it.
+
+A separate "register interest" form was the obvious alternative and is the worse one: it
+splits the inbox, doubles what you maintain, and eats the same 50-submission monthly
+allowance. One form with an intent field costs a sender four seconds and catches the
+"not this semester" replies that a pure offer form loses silently.
+
+**Follow-up consent** is a single unticked checkbox — "you may come back to me about
+later needs". Unticked means reply about this message only. It is what turns a "not now"
+into a lead you may legitimately use next semester, and leaving it unticked by default is
+what keeps it from being a mailing list.
 
 ### Changing what lenders are offered
 
@@ -172,10 +227,13 @@ CI runs everything except the sponsor-name scan, which needs the git-ignored
 
 ```
 content/            Everything a human edits
+  config.json         Launch settings and what the page shows. Start here.
   copy.md             All page prose. Sections are matched by heading.
   equipment.json      The list. `status` drives the badges.
   benefits.json       The return side; drives cards and form checkboxes together.
   lenders.json        Public acknowledgement wall — opt-in only.
+lib/
+  config.js           Reads and validates config.json
 src/
   _data/              JS that loads, validates, and shapes content/ for the templates
   _includes/          Nunjucks layout and partials — markup only, no prose
@@ -184,6 +242,12 @@ src/
 scripts/            The guards above
 docs/               Build output. Committed; served by Pages. Do not edit by hand.
 ```
+
+> `lib/config.js` sits outside `src/_data/` on purpose. Every `.js` in the data directory
+> is a data file, and Eleventy unwraps a data file's default export **only** when it is
+> the module's sole export — add one named export beside it and templates receive
+> `{default: {...}}` instead, so every `site.*` lookup silently renders empty. Shared
+> helpers live in `lib/`; data files keep exactly one export each.
 
 ---
 

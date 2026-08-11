@@ -63,6 +63,12 @@ Offer an instrument
 Have something close but not exactly what is listed? Offer it anyway — near-equivalents
 often work, and we will tell you quickly either way.
 
+## Form intent note
+
+A firm offer is not the only useful answer. A maybe, a "not this semester, try me in the
+spring", or the name of a colleague who owns one are all worth having, and all take the
+same two minutes. Tell us which of those this is and we will treat it accordingly.
+
 ## Success message (shown after submit)
 
 Thank you — your offer is logged. We will follow up within two business days.

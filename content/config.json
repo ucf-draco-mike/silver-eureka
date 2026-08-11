@@ -1,0 +1,46 @@
+{
+  "_readme": [
+    "The one file to edit before the link goes out, and the one that controls what the",
+    "public page shows. Everything here is checked at build time: a typo in an id or a",
+    "section name fails the build rather than quietly publishing something you meant to",
+    "withhold.",
+    "",
+    "CONFIDENTIALITY: no sponsor, partner, or product code names in this file, and no",
+    "dollar figures. The approved description of the work is 'an industry-sponsored",
+    "benchmarking engagement'."
+  ],
+
+  "owner": {
+    "_readme": "Fill these before launch. They are substituted into the copy and the equipment data at build time, so content/ keeps its generic wording.",
+
+    "formId": "{FORM_ID}",
+    "loanWindow": "[Oct 2026 – Jan 2027]",
+    "location": "[building/room]",
+    "contactEmail": "[contact email]",
+    "githubUser": "{username}",
+    "repoName": "equipment-loans"
+  },
+
+  "page": {
+    "allowSearchEngines": false
+  },
+
+  "sections": {
+    "_readme": "Turn a part of the page off entirely. Form controls travel with the section that explains them: switch off 'benefits' and the request checkboxes go too, switch off 'acknowledgement' and the page stops asking.",
+
+    "howItWorks": true,
+    "scopeNote": true,
+    "progressCount": true,
+    "benefits": true,
+    "lendersWall": true,
+    "acknowledgement": true,
+    "interest": true
+  },
+
+  "hidden": {
+    "_readme": "Withhold individual records without deleting them. A hidden instrument disappears from the cards AND from the form dropdown, and stops counting toward the progress line — so ask for it privately by email instead. Use this when an item is too revealing to list publicly: the notes never state a purpose, but a distinctive item can still narrow down the design on its own.",
+
+    "equipment": [],
+    "benefits": []
+  }
+}

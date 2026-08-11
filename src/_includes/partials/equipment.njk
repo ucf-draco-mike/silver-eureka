@@ -1,9 +1,11 @@
 <section class="section" aria-labelledby="equip-h">
   <h2 id="equip-h">{{ copy.equipmentHeading }}</h2>
 
+  {%- if site.sections.scopeNote %}
   <div class="prose note-scope">{{ copy.equipmentNoteHtml | safe }}</div>
+  {%- endif %}
 
-  {%- if equipment.stats.covered > 0 %}
+  {%- if site.sections.progressCount and equipment.stats.covered > 0 %}
   <p class="progress" role="status">
     {{ equipment.stats.covered }} of {{ equipment.stats.total }}
     {{ equipment.stats.total | pluralize("instrument") }} spoken for.

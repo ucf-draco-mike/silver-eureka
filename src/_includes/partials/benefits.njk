@@ -1,3 +1,4 @@
+{%- if site.sections.benefits %}
 <section class="section" aria-labelledby="benefits-h">
   <h2 id="benefits-h">{{ copy.benefitsHeading }}</h2>
   <div class="prose">{{ copy.benefitsIntroHtml | safe }}</div>
@@ -20,12 +21,16 @@
     {%- endfor %}
   </ul>
 
+  {%- if site.sections.acknowledgement %}
   <div class="intro intro-ack" id="acknowledgement">
     <h3>{{ copy.acknowledgementHeading }}</h3>
     {{ copy.acknowledgementNoteHtml | safe }}
   </div>
+  {%- endif %}
 </section>
+{%- endif %}
 
+{%- if site.sections.lendersWall and site.sections.acknowledgement %}
 <section class="section" aria-labelledby="lenders-h">
   <h2 id="lenders-h">{{ copy.lendersHeading }}</h2>
   {%- if lenders.hasAny %}
@@ -48,3 +53,4 @@
   <p class="empty">{{ copy.lendersEmpty }}</p>
   {%- endif %}
 </section>
+{%- endif %}

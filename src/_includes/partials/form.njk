@@ -10,6 +10,20 @@
   <form id="offer-form" action="{{ site.formAction }}" method="POST">
     <p class="required-note" id="required-note">Fields marked <span class="req">*</span> are required.</p>
 
+    {%- if site.sections.interest %}
+    <div class="field field-intent">
+      <label for="f-intent">What are you telling us? <span class="req" aria-hidden="true">*</span></label>
+      <select id="f-intent" name="intent" required aria-describedby="intent-hint">
+        {%- for intent in site.intents %}
+        <option value="{{ intent.label }}"
+                data-subject="{{ intent.subject }}"
+                data-needs-conditions="{{ 'yes' if intent.needsConditions else 'no' }}">{{ intent.label }}</option>
+        {%- endfor %}
+      </select>
+      <div class="hint" id="intent-hint">{{ copy.formIntentNoteHtml | safe }}</div>
+    </div>
+    {%- endif %}
+
     <div class="field">
       <label for="f-name">Name <span class="req" aria-hidden="true">*</span></label>
       <input id="f-name" name="name" type="text" required autocomplete="name">
@@ -42,10 +56,13 @@
     <div class="field">
       <label for="f-avail">Availability window <span class="opt">(optional)</span></label>
       <input id="f-avail" name="availability" type="text" aria-describedby="avail-hint">
-      <p class="hint" id="avail-hint">When could we pick it up, and any end date?</p>
+      <p class="hint" id="avail-hint">When could we pick it up, and any end date? If the answer is
+        "later", tell us when to ask.</p>
     </div>
 
-    <div class="field">
+    {# Irrelevant once the answer is "not now" or "ask someone else" — the script drops
+       both the field and its required flag, and a no-JS visitor has "Let us discuss". #}
+    <div class="field" id="conditions-field">
       <label for="f-cond">Loan conditions <span class="req" aria-hidden="true">*</span></label>
       <select id="f-cond" name="conditions" required>
         {%- for condition in site.loanConditions %}
@@ -54,9 +71,12 @@
       </select>
     </div>
 
+    {%- if site.sections.acknowledgement or site.sections.requestableBenefits or site.sections.interest %}
     <h3 class="form-subhead">The return side</h3>
-    <p class="hint">Both of these default to the quiet option. Skip them and nothing is published, and nothing is promised.</p>
+    <p class="hint">These default to the quiet option. Skip them and nothing is published, and nothing is promised.</p>
+    {%- endif %}
 
+    {%- if site.sections.acknowledgement %}
     <fieldset class="field">
       <legend>Acknowledgement</legend>
       <p class="hint" id="ack-hint">Opt-in. Change or withdraw it at any point before a manuscript goes out.</p>
@@ -80,7 +100,9 @@
       <input id="f-credit" name="credit_as" type="text" aria-describedby="credit-hint">
       <p class="hint" id="credit-hint">Your wording — name, title, department. Left blank, we will ask you before anything is printed.</p>
     </div>
+    {%- endif %}
 
+    {%- if site.sections.requestableBenefits and benefits.requestable.length %}
     <fieldset class="field">
       <legend>Anything here interest you? <span class="opt">(optional)</span></legend>
       <p class="hint" id="perks-hint">These are the parts of the return side you have to ask for. Ticking a box is not a commitment.</p>
@@ -92,6 +114,21 @@
       </div>
       {%- endfor %}
     </fieldset>
+    {%- endif %}
+
+    {%- if site.sections.interest %}
+    {# Unticked by default: a "no" today should not become a mailing list. #}
+    <fieldset class="field">
+      <legend>Keeping in touch <span class="opt">(optional)</span></legend>
+      <div class="choice">
+        <input type="checkbox" id="f-followup" name="follow_up"
+               value="May contact me about later equipment needs" aria-describedby="followup-hint">
+        <label for="f-followup">You may come back to me about later needs, not just this one
+          <span class="choice-hint" id="followup-hint">Left unticked, we only reply about this message.</span>
+        </label>
+      </div>
+    </fieldset>
+    {%- endif %}
 
     <div class="field">
       <label for="f-notes">Notes <span class="opt">(optional)</span></label>

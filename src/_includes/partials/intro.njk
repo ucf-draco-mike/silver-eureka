@@ -4,6 +4,7 @@
     {{ copy.introHtml | safe }}
   </div>
 
+  {%- if site.sections.howItWorks %}
   <h3 class="visually-hidden" id="steps-h">How it works</h3>
   <ol class="steps" aria-labelledby="steps-h">
     {%- for step in copy.steps %}
@@ -13,4 +14,5 @@
     </li>
     {%- endfor %}
   </ol>
+  {%- endif %}
 </section>

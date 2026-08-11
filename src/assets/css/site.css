@@ -363,6 +363,18 @@ input[type="text"], input[type="email"], select, textarea {
 }
 textarea { min-height: 90px; resize: vertical; }
 
+/* The framing question: it decides how everything below is read. */
+.field-intent {
+  margin-top: 4px;
+  padding: 12px 14px 14px;
+  background: var(--accent-soft);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+}
+.field-intent .hint { margin: 8px 0 0; }
+.field-intent .hint p { margin: 0; }
+
 .form-subhead {
   margin: 30px 0 4px;
   padding-top: 18px;

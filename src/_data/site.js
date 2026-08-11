@@ -1,47 +1,61 @@
 /**
- * Site-wide settings and the placeholders the owner fills in before launch.
+ * Site-wide settings for the templates.
  *
- * This is the ONLY file that needs editing to go live. Every placeholder below is
- * substituted into the copy, the equipment data, and the form at build time, so the
- * bracketed defaults are what you replace — not the text in `content/`.
+ * What the owner controls lives in `content/config.json`; `lib/config.js` reads and
+ * validates it. What the form *is* lives here — intents, loan conditions,
+ * acknowledgement choices — because those are structure rather than knobs.
  *
- * CONFIDENTIALITY: never put the sponsoring company, its partners, or dollar figures
- * in this file (or any other). The approved description of the work is
- * "an industry-sponsored benchmarking engagement".
+ * ONE export only. Eleventy unwraps a data file's default export only when it is the
+ * module's sole export; a named export alongside it hands templates the module
+ * namespace instead, and every `site.*` lookup silently renders empty.
  */
+import { owner, sections, hidden, page } from "../../lib/config.js";
+
 export default {
-  /* ---- Owner placeholders (SPEC §8) ------------------------------------------ */
+  ...owner,
 
-  /** Formspree form ID: the 8-character hash from formspree.io. */
-  formId: "{FORM_ID}",
+  /** Keep the page out of search results while it circulates by email. */
+  noindex: !page.allowSearchEngines,
 
-  /** Loan window, as it should read in prose. */
-  loanWindow: "[Oct 2026 – Jan 2027]",
-
-  /** Where the instruments live. */
-  location: "[building/room]",
-
-  /** Contact address. Rendered as a mailto link once it is a real address. */
-  contactEmail: "[contact email]",
-
-  /** GitHub account hosting the Pages site. Used for the canonical URL only. */
-  githubUser: "{username}",
-
-  /** Repository name, used for the canonical URL only. */
-  repoName: "equipment-loans",
-
-  /* ---- Fixed values ----------------------------------------------------------- */
-
-  /**
-   * Keep the page out of search results while it is circulating by email.
-   * Set to false if you want it indexed.
-   */
-  noindex: true,
+  sections,
+  hidden,
 
   /** Priority groups, in render order. Labels come from copy.md. */
   priorityOrder: ["critical", "high", "nice"],
 
-  /** Loan-condition choices for the form (SPEC §4). */
+  /**
+   * What the sender is telling us. Without this the form has room for a firm offer and
+   * nothing else, and every "not this semester, but ask me in the spring" goes
+   * unrecorded. `subject` prefixes the notification email so the inbox sorts itself.
+   */
+  intents: [
+    {
+      value: "lend",
+      label: "I can lend this",
+      subject: "Equipment loan offer",
+      needsConditions: true,
+    },
+    {
+      value: "maybe",
+      label: "I might be able to — I need to check first",
+      subject: "Possible loan",
+      needsConditions: true,
+    },
+    {
+      value: "later",
+      label: "Not during your window, but ask me for a later one",
+      subject: "Later availability",
+      needsConditions: false,
+    },
+    {
+      value: "lead",
+      label: "I do not have one, but I know who might",
+      subject: "Lead",
+      needsConditions: false,
+    },
+  ],
+
+  /** Loan-condition choices (SPEC §4). */
   loanConditions: [
     "Can live in DRACO Lab",
     "Supervised use in my lab",
@@ -81,11 +95,7 @@ export default {
     },
   ],
 
-  get formAction() {
-    return `https://formspree.io/f/${this.formId}`;
-  },
-
-  get url() {
-    return `https://${this.githubUser}.github.io/${this.repoName}/`;
-  },
+  /** Computed eagerly — see the note on single-export data files above. */
+  formAction: `https://formspree.io/f/${owner.formId}`,
+  url: `https://${owner.githubUser}.github.io/${owner.repoName}/`,
 };

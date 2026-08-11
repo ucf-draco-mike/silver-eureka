@@ -74,7 +74,7 @@ if (!/method="POST"/i.test(formTag)) fail("the form has no method=POST, so it ca
 const action = /action="([^"]*)"/.exec(formTag)?.[1] ?? "";
 if (!action.startsWith("https://formspree.io/f/")) fail(`form action is "${action}", not a Formspree endpoint`);
 if (action.includes("{FORM_ID}")) {
-  notes.push("the Formspree {FORM_ID} placeholder is unfilled — the form will not deliver until you set it in src/_data/site.js");
+  notes.push("the Formspree {FORM_ID} placeholder is unfilled — the form will not deliver until you set owner.formId in content/config.json");
 }
 for (const required of ["_gotcha", "_subject"]) {
   if (!html.includes(`name="${required}"`)) fail(`the form is missing its ${required} field`);

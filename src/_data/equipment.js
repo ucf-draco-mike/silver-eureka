@@ -8,6 +8,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import site from "./site.js";
+import { assertHiddenIdsExist, isHidden } from "../../lib/config.js";
 
 const DATA_PATH = path.join(process.cwd(), "content", "equipment.json");
 
@@ -51,7 +52,7 @@ function validate(item, index) {
 }
 
 const raw = JSON.parse(fs.readFileSync(DATA_PATH, "utf8"));
-const items = raw.items.map((item, index) => {
+const allItems = raw.items.map((item, index) => {
   validate(item, index);
   return {
     ...item,
@@ -67,12 +68,20 @@ const items = raw.items.map((item, index) => {
 });
 
 const seen = new Set();
-for (const item of items) {
+for (const item of allItems) {
   if (seen.has(item.id)) {
     throw new Error(`content/equipment.json: duplicate id "${item.id}".`);
   }
   seen.add(item.id);
 }
+
+/**
+ * Items hidden by config.json leave the page entirely — cards, dropdown, and counts.
+ * A half-hidden item is worse than a listed one: it implies the list is complete when
+ * it is not. Ask for these privately instead.
+ */
+assertHiddenIdsExist("equipment", allItems.map((item) => item.id));
+const items = allItems.filter((item) => !isHidden("equipment", item.id));
 
 const groups = site.priorityOrder
   .map((priority) => ({ priority, items: items.filter((i) => i.priority === priority) }))
@@ -84,6 +93,8 @@ export default {
   meta: raw.meta,
   items,
   groups,
+  /** Withheld from the page but still in the data — the owner asks for these directly. */
+  hiddenItems: allItems.filter((item) => isHidden("equipment", item.id)),
   /** Select options: every item, plus the catch-all the spec requires. */
   options: [...items.map((i) => i.name), "Other / near-equivalent"],
   stats: {
