@@ -17,7 +17,7 @@ Have one of these on a shelf? Lend it to science for a semester.
 
 DRACO Lab is standing up a calibrated power/performance measurement bench for an
 industry-sponsored benchmarking engagement — and we would rather borrow from colleagues
-than rent from a catalog.
+and provide them back at our expense calibrated equipment.
 
 ## Intro block
 
@@ -25,8 +25,7 @@ We need the instruments below for approximately ten weeks ([Oct 2026 – Jan 202
 Every borrowed instrument comes back with a fresh ISO/IEC 17025, NIST-traceable
 calibration performed at project expense — your meter returns in better metrological
 shape than it left. Loans are logged under chain-of-custody procedures, instruments
-live in DRACO Lab space ([building/room]) or stay in your lab under a supervised-use
-arrangement, and lenders are acknowledged in resulting publications.
+live in DRACO Lab space (HEC TBD), and lenders are acknowledged as requested.
 
 ## How it works (three short items — render as cards or a row, not a long list)
 
@@ -35,7 +34,8 @@ arrangement, and lenders are acknowledged in resulting publications.
 2. **Handoff** — we log serials and condition, agree on the return date, and handle
    transport. UCF property procedures apply throughout.
 3. **Return** — on schedule, with a fresh calibration certificate. The engagement is
-   a single measurement session with a hard end date; instruments do not linger.
+   a single measurement session with a hard end date; 
+   instruments come back to you in a timely way.
 
 ## Equipment section heading
 
@@ -111,5 +111,5 @@ No public acknowledgements yet. Lenders who opt in are listed here as loans are 
 ## Footer
 
 DRACO Lab · Department of Electrical and Computer Engineering · University of Central
-Florida · [contact email]. Questions about custody, insurance, or calibration are welcome
+Florida · mike.borowczak@ucf.edu . Questions about custody, insurance, or calibration are welcome
 — ask before you lend.
