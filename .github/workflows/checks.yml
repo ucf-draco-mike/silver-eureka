@@ -1,0 +1,41 @@
+name: Checks
+
+# The site deploys from the branch, not from CI — this workflow only verifies that what
+# is committed under docs/ is what content/ actually says, and that the guards pass.
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Structural checks
+        run: npm run check:html
+
+      - name: Purpose guard
+        run: npm run check:purpose
+
+      # The sponsor-name list lives in the git-ignored secrets.local.txt, so CI can only
+      # check dollar figures. Run `npm run check:confidential` locally before pushing.
+      - name: Confidentiality guard (dollar figures only)
+        run: npm run check:confidential
+
+      - name: Committed build is current
+        run: npm run check:build

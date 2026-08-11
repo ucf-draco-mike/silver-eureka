@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "note": "The return side of the loan. 'request' items become checkboxes in the offer form, so the label there must read as something a lender ticks. 'optin' marks a benefit governed by its own consent control rather than a checkbox. Do not add client names or dollar figures anywhere in this file.",
+    "fields": {
+      "id": "stable key, also used as the checkbox value in the form",
+      "title": "card heading",
+      "body": "one short paragraph, same voice as copy.md",
+      "request": "true = lender must ask for it on the form",
+      "request_label": "checkbox label, required when request is true",
+      "optin": "true = consent-gated, handled by its own form control"
+    }
+  },
+  "benefits": [
+    {
+      "id": "calibration",
+      "title": "A fresh accredited calibration",
+      "body": "Every instrument goes back with an ISO/IEC 17025, NIST-traceable calibration performed at project expense. The certificate travels with it, and so do the as-found and as-left data — the as-found record tells you whether the measurements you already took were inside tolerance.",
+      "request": false,
+      "optin": false
+    },
+    {
+      "id": "custody-record",
+      "title": "A condition and custody record",
+      "body": "Serial numbers, photographs at handoff and at return, and a chain-of-custody log. It is the paperwork your department property manager asks for, prepared without you having to prepare it.",
+      "request": false,
+      "optin": false
+    },
+    {
+      "id": "service-check",
+      "title": "A service check while it is here",
+      "body": "Firmware brought current, probe and lead sets verified against the instrument, and a written note of anything worn or missing from the accessory kit. Small work, but it is work you would otherwise have to schedule.",
+      "request": false,
+      "optin": false
+    },
+    {
+      "id": "logistics",
+      "title": "Transport, custody, and a fixed return date",
+      "body": "We collect the instrument and we bring it back. The loan runs under UCF property procedures from pickup to return, and the return date is agreed in writing before anything moves.",
+      "request": false,
+      "optin": false
+    },
+    {
+      "id": "reciprocity",
+      "title": "First call when the direction reverses",
+      "body": "Lenders go to the front of the queue for DRACO Lab instruments, bench space, and measurement help. We keep that ledger and we honor it.",
+      "request": false,
+      "optin": false
+    },
+    {
+      "id": "acknowledgement",
+      "title": "Acknowledgement, if you want it",
+      "body": "Named in the acknowledgements of resulting publications, listed on this page, both, or neither. The default is neither. You pick the wording, and you can withdraw it at any point before a manuscript goes out.",
+      "request": false,
+      "optin": true
+    },
+    {
+      "id": "bench-time",
+      "title": "Time on the calibrated bench",
+      "body": "Once the measurement chain is characterized we can put your board, module, or device on it and take a real measurement with you. The bench is expensive to assemble and it is being assembled anyway.",
+      "request": true,
+      "request_label": "A measurement session on the calibrated bench",
+      "optin": false
+    },
+    {
+      "id": "open-stack",
+      "title": "The measurement stack, openly",
+      "body": "The SCPI automation, the capture harness, and the written measurement protocol are released openly. Lenders get them first, with a walkthrough, rather than waiting for the repository to go public.",
+      "request": true,
+      "request_label": "The measurement scripts and protocol, with a walkthrough",
+      "optin": false
+    },
+    {
+      "id": "student-training",
+      "title": "Training for one of your students",
+      "body": "A student from your group is welcome in the setup and calibration sessions. Precision power measurement transfers badly from a manual, and there are few places on campus to learn it with instruments in front of you.",
+      "request": true,
+      "request_label": "A seat for one of my students in the setup and calibration sessions",
+      "optin": false
+    },
+    {
+      "id": "letter",
+      "title": "A letter for your next proposal",
+      "body": "We will write a facilities, collaboration, or shared-instrumentation letter for your next submission, and we will write it properly rather than from a template. This is a standing offer, not a one-time trade.",
+      "request": true,
+      "request_label": "A facilities or collaboration letter for a future proposal",
+      "optin": false
+    }
+  ]
+}
