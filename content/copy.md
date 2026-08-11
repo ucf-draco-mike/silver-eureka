@@ -43,16 +43,16 @@ What we need
 
 ## Equipment section note
 
-Each entry says what would make your unit suitable and what needs to travel with it. It
-does not say what the instrument will be doing on the bench: the engagement is under a
-non-disclosure agreement and the measurement design sits inside it. If a detail would
-change your decision, ask — we can say more in a room than on a public page.
+You'll find the equipment we're looking for here. Please note that we can not say what
+the instrument will be doing on the bench: the engagement is under an NDA and the 
+measurement design sits inside it. If a detail would change your decision, ask — 
+we can say more in a room than on a public page.
 
 ## Priority labels
 
 - critical → "Critical — the bench cannot run without this"
 - high → "High value — saves the project meaningful cost"
-- nice → "Helpful — strengthens the bench"
+- nice → "Helpful — strengthens our bench"
 
 ## Form heading
 
@@ -61,13 +61,13 @@ Offer an instrument
 ## Form intro
 
 Have something close but not exactly what is listed? Offer it anyway — near-equivalents
-often work, and we will tell you quickly either way.
+might work, and we will tell you quickly either way.
 
 ## Form intent note
 
-A firm offer is not the only useful answer. A maybe, a "not this semester, try me in the
-spring", or the name of a colleague who owns one are all worth having, and all take the
-same two minutes. Tell us which of those this is and we will treat it accordingly.
+A firm offer is not the only useful help. A maybe, a "not this semester, try me in the
+spring", or the name of a colleague who owns one all help me out.
+Tell me which of those this is and we will treat it accordingly.
 
 ## Success message (shown after submit)
 
@@ -75,8 +75,7 @@ Thank you — your offer is logged. We will follow up within two business days.
 
 ## Error message (shown if submission fails)
 
-The form did not send. Please email us directly at [contact email] — the offer matters
-more than the plumbing.
+The form did not send. Please email me directly at mike.borowczak@ucf.edu
 
 ## Benefits section heading
 
