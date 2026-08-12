@@ -268,6 +268,103 @@ h2 {
   border: 0;
 }
 
+/* --- Equipment checklist -----------------------------------------------------
+   One row per instrument in a single bordered list: a tick, the name with its
+   status badge, one quiet meta line, and the details tucked into a disclosure.
+   Selection stays script-free — the visually-hidden .card-check is the control
+   and the .check-face label is the whole clickable row. */
+.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 48rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.check-item { border-bottom: 1px solid var(--line); }
+.check-item:last-child { border-bottom: 0; }
+.check-item.is-secured { opacity: 0.62; }
+
+.check-face {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+}
+/* Hover only where a pointer can actually hover — avoids sticky states on touch. */
+@media (hover: hover) {
+  .check-face:hover { background: var(--accent-soft); }
+}
+
+/* A row with nothing to tick must not invite a click. */
+.check-face-static { cursor: default; }
+@media (hover: hover) {
+  .check-face-static:hover { background: none; }
+}
+
+.check-box {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: none;
+  margin-top: 0.1rem;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--paper);
+  position: relative;
+}
+.check-box-static { opacity: 0.5; }
+
+.check-text { min-width: 0; }
+.check-name {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.3;
+}
+.check-name .badge { margin-left: 8px; vertical-align: 2px; }
+.check-face .meta {
+  display: block;
+  color: var(--muted);
+  font-size: 0.82rem;
+  margin-top: 2px;
+}
+
+/* Selected. The sibling selector does the work; :has() adds the inset edge. */
+.card-check:checked ~ .check-face { background: var(--accent-soft); }
+.card-check:checked ~ .check-face .check-box {
+  background: var(--accent-ink);
+  border-color: var(--accent-ink);
+}
+.card-check:checked ~ .check-face .check-box::after {
+  content: "";
+  position: absolute;
+  left: 0.34rem; top: 0.14rem;
+  width: 0.32rem; height: 0.62rem;
+  border: solid var(--card);
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
+}
+.check-item:has(.card-check:checked) { box-shadow: inset 3px 0 0 var(--accent-ink); }
+
+/* Focus lands on the visually-hidden input, so show the ring on the face instead. */
+.card-check:focus-visible ~ .check-face {
+  outline: 3px solid var(--focus);
+  outline-offset: -3px;
+}
+
+/* The details disclosure sits under the row, indented to align with the name.
+   No top rule of its own — the row divider already separates items. */
+.check-item .card-more { border-top: 0; }
+.check-item .card-more > summary { padding: 0 16px 12px 46px; }
+.check-item .card-more-body { padding: 0 16px 14px 46px; }
+/* .card p reset the margins for the old card body; the checklist needs the same,
+   otherwise the disclosure paragraphs fall back to the browser's 1em margins. */
+.check-item p { margin: 0; }
+
 .grid {
   display: grid;
   /* ~5 across at full width, stepping down to 1 on a phone. */
@@ -604,5 +701,5 @@ textarea { min-height: 90px; resize: vertical; }
 @media print {
   .skip-link, .offer-btn, form, .panel { display: none !important; }
   body { background: #fff; color: #000; }
-  .card { break-inside: avoid; }
+  .card, .check-item { break-inside: avoid; }
 }

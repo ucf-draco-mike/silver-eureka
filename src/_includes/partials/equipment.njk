@@ -17,48 +17,50 @@
 
   {%- for group in equipment.groups %}
   <h3 class="prio-label" id="prio-{{ group.priority }}">{{ copy.priorityLabels[group.priority] }}</h3>
-  <ul class="grid" aria-labelledby="prio-{{ group.priority }}">
+  <ul class="checklist" aria-labelledby="prio-{{ group.priority }}">
     {%- for item in group.items %}
-    <li>
-      <article class="card{% if item.isSecured %} is-secured{% endif %}" id="item-{{ item.id }}">
-        {#
-          The checkbox IS the selection — no script involved. `form="offer-form"` makes
-          it a member of the form further down the page, so a card ticked here submits
-          with everything else even when JavaScript never runs. The label covers the
-          whole card face, which is what makes "click the card" work natively.
-        #}
-        {%- if not item.isSecured %}
-        <input class="card-check" type="checkbox" id="pick-{{ item.id }}"
-               name="equipment" value="{{ item.name }}" form="offer-form"
-               aria-describedby="pick-hint">
-        {%- endif %}
-        <label class="card-face" for="pick-{{ item.id }}">
-          <span class="badge {{ item.status }}">{{ item.status }}</span>
-          <span class="card-name">{{ item.name }}</span>
+    <li class="check-item{% if item.isSecured %} is-secured{% endif %}" id="item-{{ item.id }}">
+      {#
+        The checkbox IS the selection — no script involved. `form="offer-form"` makes
+        it a member of the form further down the page, so a row ticked here submits
+        with everything else even when JavaScript never runs. The label covers the
+        whole row face, which is what makes "click the row" work natively.
+      #}
+      {%- if not item.isSecured %}
+      <input class="card-check" type="checkbox" id="pick-{{ item.id }}"
+             name="equipment" value="{{ item.name }}" form="offer-form"
+             aria-describedby="pick-hint">
+      <label class="check-face" for="pick-{{ item.id }}">
+        <span class="check-box" aria-hidden="true"></span>
+        <span class="check-text">
+          <span class="check-name">{{ item.name }}<span class="badge {{ item.status }}">{{ item.status }}</span></span>
           <span class="meta">Qty {{ item.qty }} · ~{{ item.weeks_needed }} wk</span>
-          {%- if not item.isSecured %}
-          <span class="card-pick" aria-hidden="true">
-            <span class="card-pick-box"></span>
-            <span class="card-pick-text">Select</span>
-          </span>
-          {%- endif %}
-        </label>
+        </span>
+      </label>
+      {%- else %}
+      <div class="check-face check-face-static">
+        <span class="check-box check-box-static" aria-hidden="true"></span>
+        <span class="check-text">
+          <span class="check-name">{{ item.name }}<span class="badge {{ item.status }}">{{ item.status }}</span></span>
+          <span class="meta">Qty {{ item.qty }} · ~{{ item.weeks_needed }} wk</span>
+        </span>
+      </div>
+      {%- endif %}
 
-        {# Kept, not cut: the compliance limits and near-equivalents are the details
-           that decide whether someone's unit is usable. Folded away, not deleted. #}
-        <details class="card-more">
-          <summary>Details</summary>
-          <div class="card-more-body">
-            <p class="meta model">{{ item.examples }}</p>
-            {%- if item.alternatives %}
-            <p><strong>Close counts:</strong> {{ item.alternatives }}</p>
-            {%- endif %}
-            {%- if item.notes %}
-            <p>{{ item.notes }}</p>
-            {%- endif %}
-          </div>
-        </details>
-      </article>
+      {# Kept, not cut: the compliance limits and near-equivalents are the details
+         that decide whether someone's unit is usable. Folded away, not deleted. #}
+      <details class="card-more">
+        <summary>Details</summary>
+        <div class="card-more-body">
+          <p class="meta model">{{ item.examples }}</p>
+          {%- if item.alternatives %}
+          <p><strong>Close counts:</strong> {{ item.alternatives }}</p>
+          {%- endif %}
+          {%- if item.notes %}
+          <p>{{ item.notes }}</p>
+          {%- endif %}
+        </div>
+      </details>
     </li>
     {%- endfor %}
   </ul>
